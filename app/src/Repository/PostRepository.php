@@ -4,8 +4,11 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\QueryBuilder;
+
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -36,6 +39,10 @@ class PostRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select('partial post.{id, createdAt, updatedAt, title, content}',
+                'partial post.{id, title}')
+            ->join('post.category', 'category')
+//            ->join('post.comments', 'comments')
             ->orderBy('post.updatedAt', 'DESC');
         // join post i comment
     }
@@ -52,18 +59,25 @@ class PostRepository extends ServiceEntityRepository
         return $queryBuilder ?? $this->createQueryBuilder('post');
     }
 
+    /**
+     * Constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
     }
 
-    public function save(Post $entity, bool $flush = false): void
+    /**
+     * Save entity.
+     *
+     * @param Post $post Post entity
+     */
+    public function save(Post $post): void
     {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->_em->persist($post);
+        $this->_em->flush();
     }
 
     public function remove(Post $entity, bool $flush = false): void
@@ -73,6 +87,17 @@ class PostRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Post $post Post entity
+     */
+    public function delete(Post $post): void
+    {
+        $this->_em->remove($post);
+        $this->_em->flush();
     }
 
 //    /**

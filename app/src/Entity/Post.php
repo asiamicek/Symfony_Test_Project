@@ -83,6 +83,7 @@ class Post
      * @var Collection|ArrayCollection
      */
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
+    #[ORM\JoinColumn(name: "id", referencedColumnName: "post_id", onDelete: "CASCADE")]
     private Collection $comments;
 
 

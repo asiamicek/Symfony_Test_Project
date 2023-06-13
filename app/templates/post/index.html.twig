@@ -19,6 +19,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'post.createdAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'post.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'post.title') }}</th>
+                <th>{{ 'label.post'|trans }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -29,9 +30,16 @@
                     <td>{{ post.createdAt|date('Y/m/d') }}</td>
                     <td>{{ post.updatedAt|date('Y/m/d') }}</td>
                     <td>{{ post.title }}</td>
+                    <td>{{ post.category.title }}</td>
                     <td>
                         <a href="{{ url('post_show', {id: post.id}) }}" title="{{ 'action.show'|trans }}">
                             {{ 'action.show'|trans }}
+                        </a>
+                        <a href="{{ url('post_edit', {id: post.id}) }}" title="{{ 'action.edit'|trans }}">
+                            {{ 'action.edit'|trans }}
+                        </a>
+                        <a href="{{ url('post_delete', {id: post.id}) }}" title="{{ 'action.delete'|trans }}">
+                            {{ 'action.delete'|trans }}
                         </a>
                     </td>
                 </tr>
