@@ -6,7 +6,9 @@
 namespace App\Form\Type;
 
 use App\Entity\Category;
+use App\Entity\Tag;
 use App\Entity\Post;
+use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -19,6 +21,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PostType extends AbstractType
 {
+    /**
+     * Tags data transformer.
+     *
+     * @var TagsDataTransformer
+     */
+    private TagsDataTransformer $tagsDataTransformer;
+
+    /**
+     * Constructor.
+     *
+     * @param TagsDataTransformer $tagsDataTransformer Tags data transformer
+     */
+    public function __construct(TagsDataTransformer $tagsDataTransformer)
+    {
+        $this->tagsDataTransformer = $tagsDataTransformer;
+    }
     /**
      * Builds the form.
      *
@@ -62,6 +80,20 @@ class PostType extends AbstractType
                 'placeholder' => 'label_none',
                 'required' => true,
             ]
+        );
+
+        $builder->add(
+            'tags',
+            TextType::class,
+            [
+                'label' => 'label.tags',
+                'required' => false,
+                'attr' => ['max_length' => 128],
+            ]
+        );
+
+        $builder->get('tags')->addModelTransformer(
+            $this->tagsDataTransformer
         );
 
     }

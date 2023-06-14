@@ -33,11 +33,22 @@
                             <td>{{ comment.id }}</td>
                             <td>{{ comment.content }}</td>
                             <td>{{ comment.createdAt|date('d-m-Y') }}</td>
+                            <td><a href="{{ url('comment_delete', {id: comment.id}) }}" title="{{ 'action.delete'|trans }}">
+                                    {{ 'action.delete'|trans }}
+                                </a></td>
                         </tr>
 {#                    {% endif %}#}
                 {% endfor %}
             </table>
         {% endif %}
+
+        <h3>Dodaj komentarz</h3>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="form-group row float-sm-right">
+            <input id="wyslij" type="submit" value="Wyślij" class="btn btn-primary"/>
+        </div>
+        {{ form_end(form) }}
 
         <p>
             <a href="{{ url('post_index') }}" title="{{ 'action.back_to_list'|trans }}">

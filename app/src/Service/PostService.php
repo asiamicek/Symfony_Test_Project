@@ -6,6 +6,7 @@
 namespace App\Service;
 
 use App\Entity\Post;
+use App\Entity\Tag;
 use App\Repository\PostRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -52,6 +53,7 @@ class PostService implements PostServiceInterface
             PostRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
+
 
     /**
      * Save entity.

@@ -7,7 +7,10 @@ namespace App\Entity;
 
 use App\Entity\Post;
 use App\Repository\CommentRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Class Comment.
@@ -37,9 +40,11 @@ class Comment
     /**
      * Created at.
      *
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
+     *
      */
-    #[ORM\Column]
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
@@ -129,5 +134,16 @@ class Comment
 
         return $this;
     }
+//
+//    /**
+//     * Setter for Category.
+//     *
+//     * @param Category|null $category
+//     * @return void
+//     */
+//    public function setCategory(?Category $category): void
+//    {
+//        $this->category = $category;
+//    }
 
 }

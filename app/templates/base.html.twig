@@ -1,5 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+{#<header>#}
+{#    {% block header %}#}
+{#        <img src="{{ asset('image/logo_apka-removebg-preview.png') }}" id="logo" >#}
+{#        <nav>#}
+{#            <ul class="vertical-menu">#}
+
+{#                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}#}
+{#                    <li><a href="{{ url('post_index') }}" title="{{ 'post_index'|trans }}">{{ 'post_index'|trans }}</a></li>#}
+{#                    <li><a href="{{ url('category_index') }}" title="{{ 'category_index'|trans }}">{{ 'category_index'|trans }}</a></li>#}
+{#                    {% if is_granted('ROLE_ADMIN') %}#}
+{#                        <li><a href="{{ url('tag_index') }}" title="{{ 'tag_index'|trans }}">{{ 'tag_index'|trans }}</a></li>#}
+{#                        <li><a href="{{ url('user_index') }}" title="{{ 'user_index'|trans }}">{{ 'user_index'|trans }}</a></li>#}
+{#                    {% endif %}#}
+{#                    <br>#}
+{#                    <li><a href="{{ url('user_show',{id: app.user.id}) }}"><b>{{ app.user.firstname }}</b><b style="padding-left: 6px;">{{ app.user.lastname }}</b></a></li>#}
+{#                    <li><a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a></li>#}
+{#                {% else %}#}
+{#                    <li><a href="{{ url('app_login') }}" title="{{ 'action_login'|trans }}">{{ 'action_login'|trans }}</a></li>#}
+{#                    <li><a href="{{url('registration_signup')}}" title="{{ 'action_signup'|trans }}">{{ 'action_signup'|trans }}</a></li>#}
+{#                {% endif %}#}
+
+
+{#            </ul>#}
+{#        </nav>#}
+{#        <p id="foot">© Copyright Joanna Micek</p>#}
+{#    {% endblock %}#}
+{#</header>#}
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -10,30 +37,48 @@
                 crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     {% endblock %}
+
+    <nav>
+        <ul>
+            <li><a href="{{ url('post_index') }}">{{ 'post_index'|trans }}</a></li>
+            <li><a href="{{ url('category_index') }}">{{ 'category_index'|trans }}</a></li>
+        </ul>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div>{{ app.user.email }}</div>
+            <div>
+                <a href="{{ path('app_logout') }}">{{ 'action_logout'|trans }}</a>
+            </div>
+        {% else %}
+            <div>
+                <a href="{{ path('app_login') }}">{{ 'action_login'|trans }}</a>
+            </div>
+        {% endif %}
+    </nav>
+
 </head>
 <body>
 <div class="container-fluid">
 
     {% include 'default/_flash_messages.html.twig' %}
 
-<main role="main" class="container-fluid">
-    {% block body %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">Features</a>
-                    <a class="nav-item nav-link" href="#">Pricing</a>
-                    <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </div>
-            </div>
-        </nav>
-    {% endblock %}
-</main>
+{#<main role="main" class="container-fluid">#}
+{#    {% block body %}#}
+{#        <nav class="navbar navbar-expand-lg navbar-light bg-light">#}
+{#            <a class="navbar-brand" href="#">Navbar</a>#}
+{#            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">#}
+{#                <span class="navbar-toggler-icon"></span>#}
+{#            </button>#}
+{#            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">#}
+{#                <div class="navbar-nav">#}
+{#                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>#}
+{#                    <a class="nav-item nav-link" href="#">Features</a>#}
+{#                    <a class="nav-item nav-link" href="#">Pricing</a>#}
+{#                    <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </nav>#}
+{#    {% endblock %}#}
+{#</main>#}
 </div>
 {% block javascripts %}
     <script

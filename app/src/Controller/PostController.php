@@ -5,8 +5,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\Type\CommentType;
 use App\Form\Type\PostType;
+use App\Service\CommentServiceInterface;
 use App\Service\PostService;
 use App\Service\PostServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,6 +30,11 @@ class PostController extends AbstractController
     private PostServiceInterface $postService;
 
     /**
+     * Comment service.
+     */
+    private CommentServiceInterface $commentService;
+
+    /**
      * Translator.
      *
      * @var TranslatorInterface
@@ -38,12 +46,14 @@ class PostController extends AbstractController
      * Constructor.
      *
      * @param PostServiceInterface $postService Post service
+     * @param CommentServiceInterface $commentService Comment service
      * @param TranslatorInterface      $translator  Translator
      *
      */
-    public function __construct(PostServiceInterface $postService, TranslatorInterface $translator)
+    public function __construct(PostServiceInterface $postService, TranslatorInterface $translator, CommentServiceInterface $commentService)
     {
         $this->postService = $postService;
+        $this->commentService = $commentService;
         $this->translator = $translator;
     }
 
@@ -72,17 +82,32 @@ class PostController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route(
-        '/{id}',
-        name: 'post_show',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: 'GET',
-    )]
-    public function show(Post $post): Response
+    #[Route("/{id}", name: "post_show", methods: ["GET", "POST"],  requirements: ["id" => "[1-9]\d*"])]
+    public function show(Post $post, Request $request): Response
     {
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment, ['action' => $this->generateUrl('post_show',['id'=>$post->getId()])]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setPost($post);
+            $this->commentService->save($comment);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.created_successfully')
+            );
+
+            return $this->redirectToRoute('post_show',['id'=>$post->getId()]);
+//            $this->categoryService->save($category);
+        }
+
+
+
         return $this->render(
             'post/show.html.twig',
-            ['post' => $post]
+            ['post' => $post, 'form'=>$form->createView()]
         );
     }
 
@@ -93,11 +118,7 @@ class PostController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route(
-        '/create',
-        name: 'post_create',
-        methods: 'GET|POST',
-    )]
+    #[Route("/create", methods: ["GET", "POST"], name: "post_create")]
     public function create(Request $request): Response
     {
         $post = new Post();

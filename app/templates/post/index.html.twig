@@ -20,6 +20,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'post.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'post.title') }}</th>
                 <th>{{ 'label.post'|trans }}</th>
+                <th>{{ 'label_tags'|trans }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -31,6 +32,17 @@
                     <td>{{ post.updatedAt|date('Y/m/d') }}</td>
                     <td>{{ post.title }}</td>
                     <td>{{ post.category.title }}</td>
+                    <td>
+                        {% if post.tags is defined and post.tags|length %}
+                            {% for tag in post.tags %}
+                                <a href="{{ url('post_index', {'filters_tags_id' : tag.id}) }}" title="{{ tag.title }}">
+                                    {{ tag.title }}
+                                </a>
+                            {% endfor %}
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="{{ url('post_show', {id: post.id}) }}" title="{{ 'action.show'|trans }}">
                             {{ 'action.show'|trans }}

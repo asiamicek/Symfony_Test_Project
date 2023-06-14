@@ -42,10 +42,11 @@ class PostRepository extends ServiceEntityRepository
             ->select('partial post.{id, createdAt, updatedAt, title, content}',
                 'partial post.{id, title}')
             ->join('post.category', 'category')
-//            ->join('post.comments', 'comments')
+            ->leftJoin('post.comments', 'comments')
             ->orderBy('post.updatedAt', 'DESC');
         // join post i comment
     }
+
 
     /**
      * Get or create new query builder.

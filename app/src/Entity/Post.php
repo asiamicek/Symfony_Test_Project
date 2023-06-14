@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Post.
@@ -88,6 +89,15 @@ class Post
     #[ORM\JoinColumn(name: "id", referencedColumnName: "post_id", onDelete: "CASCADE")]
     private Collection $comments;
 
+    /**
+     * Tags.
+     *
+     * @var ArrayCollection<int, Tag>
+     */
+    #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'posts_tags')]
+    private Collection $tags;
+
 
     /**
      * Comments constructor.
@@ -95,6 +105,7 @@ class Post
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
 
     }
 
@@ -259,6 +270,44 @@ class Post
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Getter for tags.
+     *
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+
+
+    /**
+     * Add Tag.
+     *
+     * @param Tag $tag Tag entity
+     *
+     * @return void
+     */
+    public function addTag(Tag $tag): void
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+    }
+
+    /**
+     * Remove tag.
+     *
+     * @param Tag $tag Tag entity
+     */
+    public function removeTag(Tag $tag): static
+    {
+        $this->tags->removeElement($tag);
 
         return $this;
     }

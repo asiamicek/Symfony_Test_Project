@@ -5,6 +5,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Post;
+use App\Entity\Tag;
 use App\Entity\Category;
 use App\Entity\Comment;
 use DateTimeImmutable;
@@ -18,7 +19,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
  *
  * @psalm-suppress MissingConstructor
  */
-class PostFixtures extends AbstractBaseFixtures
+class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.
@@ -35,7 +36,7 @@ class PostFixtures extends AbstractBaseFixtures
             return;
         }
 
-        $this->createMany(10, 'posts', function (int $i){
+        $this->createMany(10, 'posts', function (){
             $post = new Post();
             $post->setTitle($this->faker->sentence);
             $post->setContent($this->faker->sentence);
@@ -48,6 +49,16 @@ class PostFixtures extends AbstractBaseFixtures
             /** @var Category $category */
             $category = $this->getRandomReference('categories');
             $post->setCategory($category);
+
+            /** @var Tag $tag */
+            $tags = $this->getRandomReferences(
+                'tags',
+                $this->faker->numberBetween(0, 5)
+            );
+
+            foreach ($tags as $tag) {
+                $post->addTag($tag);
+            }
 
 //            $this->manager->persist($post);
             return $post;
@@ -66,6 +77,6 @@ class PostFixtures extends AbstractBaseFixtures
      */
     public function getDependencies(): array
     {
-        return [CategoryFixtures::class];
+        return [CategoryFixtures::class, TagFixtures::class];
     }
 }
