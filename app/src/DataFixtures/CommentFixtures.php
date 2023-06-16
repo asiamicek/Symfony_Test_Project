@@ -7,6 +7,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\User;
 use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
@@ -41,6 +42,10 @@ class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureIn
             $post = $this->getRandomReference('posts');
             $comment->setPost($post);
 
+            /** @var User $author */
+            $author = $this->getRandomReference('users');
+            $comment->setAuthor($author);
+
             return $comment;
         });
 
@@ -53,10 +58,10 @@ class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureIn
      *
      * @return string[] of dependencies
      *
-     * @psalm-return array{0: PostFixtures::class}
+     * @psalm-return array{0: PostFixtures::class, 1: UserFixtures::class}
      */
     public function getDependencies(): array
     {
-        return [PostFixtures::class];
+        return [PostFixtures::class, UserFixtures::class];
     }
 }

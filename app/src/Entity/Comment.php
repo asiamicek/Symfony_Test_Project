@@ -10,6 +10,7 @@ use App\Repository\CommentRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -53,7 +54,19 @@ class Comment
      * @var Post|null
      */
     #[ORM\ManyToOne(inversedBy: 'comment')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
+
+    /**
+     * Author.
+     *
+     * @var User|null
+     */
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Type(User::class)]
+    private ?User $author = null;
 
 
     /**
@@ -145,5 +158,17 @@ class Comment
 //    {
 //        $this->category = $category;
 //    }
+
+public function getAuthor(): ?User
+{
+    return $this->author;
+}
+
+public function setAuthor(?User $author): static
+{
+    $this->author = $author;
+
+    return $this;
+}
 
 }

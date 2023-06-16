@@ -7,6 +7,7 @@ namespace App\Service;
 
 use App\Entity\Post;
 use App\Entity\Tag;
+use App\Entity\User;
 use App\Repository\PostRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -41,7 +42,8 @@ class PostService implements PostServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int  $page   Page number
+     *
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */

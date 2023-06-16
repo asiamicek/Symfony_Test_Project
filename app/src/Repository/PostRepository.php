@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
@@ -45,6 +46,24 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('post.comments', 'comments')
             ->orderBy('post.updatedAt', 'DESC');
         // join post i comment
+    }
+
+
+    /**
+     * Query tasks by author.
+     *
+     * @param User $user User entity
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryByAuthor(User $user): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder->andWhere('post.author = :author')
+            ->setParameter('author', $user);
+
+        return $queryBuilder;
     }
 
 

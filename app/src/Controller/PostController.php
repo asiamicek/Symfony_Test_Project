@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\Type\CommentType;
 use App\Form\Type\PostType;
 use App\Service\CommentServiceInterface;
@@ -70,8 +71,9 @@ class PostController extends AbstractController
     {
         $pagination = $this->postService->getPaginatedList(
             $request->query->getInt('page', 1)
-        );
 
+        );
+//        $this->getUser()
         return $this->render('post/index.html.twig', ['pagination' => $pagination]);
     }
 
@@ -85,8 +87,21 @@ class PostController extends AbstractController
     #[Route("/{id}", name: "post_show", methods: ["GET", "POST"],  requirements: ["id" => "[1-9]\d*"])]
     public function show(Post $post, Request $request): Response
     {
+//        if ($post->getAuthor() !== $this->getUser()) {
+//            $this->addFlash(
+//                'warning',
+//                $this->translator->trans('message.record_not_found')
+//            );
+//
+//            return $this->redirectToRoute('post_index');
+//        }
 
+
+        /** @var User $user */
+        $user = $this->getUser();
         $comment = new Comment();
+        $comment->setAuthor($user);
+
         $form = $this->createForm(CommentType::class, $comment, ['action' => $this->generateUrl('post_show',['id'=>$post->getId()])]);
         $form->handleRequest($request);
 
@@ -121,7 +136,10 @@ class PostController extends AbstractController
     #[Route("/create", methods: ["GET", "POST"], name: "post_create")]
     public function create(Request $request): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $post = new Post();
+        $post->setAuthor($user);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
@@ -153,6 +171,15 @@ class PostController extends AbstractController
     #[Route('/{id}/edit', name: 'post_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
     public function edit(Request $request, Post $post): Response
     {
+        if ($post->getAuthor() !== $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message.record_not_found')
+            );
+
+            return $this->redirectToRoute('post_index');
+        }
+
         $form = $this->createForm(
             PostType::class,
             $post,
@@ -194,6 +221,15 @@ class PostController extends AbstractController
     #[Route('/{id}/delete', name: 'post_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, Post $post): Response
     {
+        if ($post->getAuthor() !== $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message.record_not_found')
+            );
+
+            return $this->redirectToRoute('post_index');
+        }
+
         $form = $this->createForm(PostType::class, $post, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('post_delete', ['id' => $post->getId()]),

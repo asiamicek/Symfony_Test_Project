@@ -8,6 +8,7 @@ use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\User;
 use DateTimeImmutable;
 //use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -60,6 +61,10 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
                 $post->addTag($tag);
             }
 
+            /** @var User $author */
+            $author = $this->getRandomReference('users');
+            $post->setAuthor($author);
+
 //            $this->manager->persist($post);
             return $post;
         });
@@ -73,10 +78,10 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
      *
      * @return string[] of dependencies
      *
-     * @psalm-return array{0: CategoryFixtures::class}
+     * @psalm-return array{0: CategoryFixtures::class, 1: TagFixtures::class, 2: UserFixtures::class}
      */
     public function getDependencies(): array
     {
-        return [CategoryFixtures::class, TagFixtures::class];
+        return [CategoryFixtures::class, TagFixtures::class, UserFixtures::class];
     }
 }
