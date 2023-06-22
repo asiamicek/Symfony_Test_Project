@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Class PostController.
@@ -42,20 +43,26 @@ class PostController extends AbstractController
      */
     private TranslatorInterface $translator;
 
+    /**
+     * Security.
+     */
+    private Security $security;
 
     /**
      * Constructor.
      *
+     * @param Security                  $security         Security
      * @param PostServiceInterface $postService Post service
      * @param CommentServiceInterface $commentService Comment service
      * @param TranslatorInterface      $translator  Translator
      *
      */
-    public function __construct(PostServiceInterface $postService, TranslatorInterface $translator, CommentServiceInterface $commentService)
+    public function __construct(PostServiceInterface $postService, TranslatorInterface $translator, CommentServiceInterface $commentService, Security $security)
     {
         $this->postService = $postService;
         $this->commentService = $commentService;
         $this->translator = $translator;
+        $this->security = $security;
     }
 
 
@@ -69,9 +76,10 @@ class PostController extends AbstractController
     #[Route(name: 'post_index', methods: 'GET')]
     public function index(Request $request): Response
     {
+        $filters = $this->getFilters($request);
         $pagination = $this->postService->getPaginatedList(
-            $request->query->getInt('page', 1)
-
+            $request->query->getInt('page', 1),
+            $filters
         );
 //        $this->getUser()
         return $this->render('post/index.html.twig', ['pagination' => $pagination]);
@@ -230,13 +238,19 @@ class PostController extends AbstractController
             return $this->redirectToRoute('post_index');
         }
 
+
         $form = $this->createForm(PostType::class, $post, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('post_delete', ['id' => $post->getId()]),
         ]);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $comments = $this->commentService->queryByPost($post);
+            foreach ($comments as $comment) {
+                $this->commentService->delete($comment);
+            }
             $this->postService->delete($post);
 
             $this->addFlash(
@@ -254,5 +268,23 @@ class PostController extends AbstractController
                 'post' => $post,
             ]
         );
+    }
+
+    /**
+     * Get filters from request.
+     *
+     * @param Request $request HTTP request
+     *
+     * @return array<string, int> Array of filters
+     *
+     * @psalm-return array{category_id: int, tag_id: int, status_id: int}
+     */
+    private function getFilters(Request $request): array
+    {
+        $filters = [];
+        $filters['category_id'] = $request->query->getInt('filters_category_id');
+        $filters['tag_id'] = $request->query->getInt('filters_tags_id');
+
+        return $filters;
     }
 }

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.post_edit'|trans({'%id%': post.id|default('')}) }}
+    {{ 'title_post_edit'|trans({'%id%': post.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.post_edit'|trans({'%id%': post.id|default('')}) }}</h1>
+    <h1>{{ 'title_post_edit'|trans({'%id%': post.id|default('')}) }}</h1>
     {% include 'default/_form.html.twig' with {
-        page_title: 'title.post_edit'|trans({'%id%': post.id|default('')}),
+        page_title: 'title_post_edit_message'|trans({'%id%': post.id|default('')}),
         form: form,
         submit_label: 'action.edit'|trans,
         back_to_list_path: 'post_index',

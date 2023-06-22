@@ -50,6 +50,24 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function checkPostsByCategoryId(int $categoryId): bool
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->select('COUNT(p.id)')
+            ->join('c.posts', 'p')
+            ->where('c.id = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->setMaxResults(1);
+
+        $count = $qb->getQuery()->getSingleScalarResult();
+
+        return $count > 0;
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param QueryBuilder|null $queryBuilder Query builder

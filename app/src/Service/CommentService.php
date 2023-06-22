@@ -6,6 +6,7 @@
 namespace App\Service;
 
 use App\Entity\Comment;
+use App\Entity\Post;
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -52,6 +53,18 @@ class CommentService implements CommentServiceInterface
             CommentRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
+
+    /**
+     * Find by post.
+     *
+     * @param Post $post Post entity
+     *
+     * @return array Result
+     */
+    public function findByPost(Post $post): array
+    {
+        return $this->commentRepository->queryByPost($post)->getQuery()->getResult();
+    }// end findByPost()
 
     /**
      * Save entity.

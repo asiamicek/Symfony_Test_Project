@@ -7,6 +7,7 @@ namespace App\Entity;
 
 use App\Repository\CategoryRepository;
 use DateTimeImmutable;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -69,5 +70,13 @@ class Category
         $this->title = $title;
 
         return $this;
+    }
+
+    public static function checkPostsByCategoryId(int $categoryId, EntityManagerInterface $entityManager): bool
+    {
+        $entityManager = // Pobierz EntityManager
+        $repository = $entityManager->getRepository(Category::class);
+
+        return $repository->checkPostsByCategoryId($categoryId);
     }
 }

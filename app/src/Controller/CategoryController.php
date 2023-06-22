@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Service\CategoryServiceInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -171,8 +172,17 @@ class CategoryController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
-    public function delete(Request $request, Category $category): Response
+    public function delete(Request $request, Category $category, EntityManagerInterface $entityManager): Response
     {
+
+        $id = $category->getId();
+
+        if ($category->checkPostsByCategoryId($id, $entityManager)) {
+            $this->addFlash('warning', 'message_category_contains_notes');
+
+            return $this->redirectToRoute('category_index');
+        }
+
         $form = $this->createForm(FormType::class, $category, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('category_delete', ['id' => $category->getId()]),

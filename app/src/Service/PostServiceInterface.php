@@ -16,14 +16,26 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 interface PostServiceInterface
 {
     /**
-     * Get paginated list.
+     * Create paginated list.
      *
-     * @param int $page Page number
+     * @param int  $page   Page number
      *
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface;
+    public function createPaginatedList(int $page): PaginationInterface;
+
+
+    /**
+     * Get paginated list.
+     *
+     * @param int $page Page number
+     * @param array<string, int> $filters Filters array
+     *
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
+     */
+    public function getPaginatedList(int $page, array $filters = []): PaginationInterface;
 
 //    /**
 //     * Find by title.

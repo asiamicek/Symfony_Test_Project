@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.comment_details'|trans({'%id%': comment.id|default('')}) }}
+    {{ 'title_comment_details'|trans({'%id%': comment.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.comment_details'|trans({'%id%': comment.id|default('')}) }}</h1>
+    <h1>{{ 'title_comment_details'|trans({'%id%': comment.id|default('')}) }}</h1>
     {% if comment is defined and comment|length %}
 
 
 
         <dl class="dl-horizontal">
-            <dt>{{ 'label.id'|trans }}</dt>
+            <dt>{{ 'label_id'|trans }}</dt>
             <dd>{{ comment.id }}</dd>
-            <dt>{{ 'label.created_at'|trans }}</dt>
+            <dt>{{ 'label_created_at'|trans }}</dt>
             <dd>{{ comment.createdAt|date('Y/m/d') }}</dd>
-            <dt>{{ 'label.title'|trans }}</dt>
+            <dt>{{ 'label_title'|trans }}</dt>
             <dd>{{  comment.post.title }}</dd>
-            <dt>{{ 'label.content'|trans }}</dt>
+            <dt>{{ 'label_content'|trans }}</dt>
             <dd>{{  comment.content }}</dd>
         </dl>
 
@@ -28,7 +28,7 @@
         </p>
     {% else %}
         <p>
-            {{ 'message.record_not_found'|trans }}
+            {{ 'message_record_not_found'|trans }}
         </p>
     {% endif %}
 {% endblock %}

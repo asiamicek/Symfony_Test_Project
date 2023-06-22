@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Post;
+use App\Entity\Tag;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,17 +37,21 @@ class PostRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
+     * @param array<string, object> $filters Filters
      * @return QueryBuilder Query builder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(array $filters): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
+        $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select('partial post.{id, createdAt, updatedAt, title, content}',
                 'partial post.{id, title}')
             ->join('post.category', 'category')
             ->leftJoin('post.comments', 'comments')
+            ->leftJoin('post.tags', 'tags')
             ->orderBy('post.updatedAt', 'DESC');
         // join post i comment
+
+        return $this->applyFiltersToList($queryBuilder, $filters);
     }
 
 
@@ -67,6 +73,31 @@ class PostRepository extends ServiceEntityRepository
     }
 
 
+
+    /**
+    * Apply filters to paginated list.
+    *
+    * @param QueryBuilder          $queryBuilder Query builder
+    * @param array<string, object> $filters      Filters array
+    *
+    * @return QueryBuilder Query builder
+    */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['category']) && $filters['category'] instanceof Category) {
+            $queryBuilder->andWhere('category = :category')
+                ->setParameter('category', $filters['category']);
+        }
+
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tags IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
+
+        return $queryBuilder;
+    }
+
+
     /**
      * Get or create new query builder.
      *
@@ -78,6 +109,33 @@ class PostRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('post');
     }
+
+//    /**
+//     * Prepare filters for the tasks list.
+//     *
+//     * @param array<string, int> $filters Raw filters from request
+//     *
+//     * @return array<string, object> Result array of filters
+//     */
+//    private function prepareFilters(array $filters): array
+//    {
+//        $resultFilters = [];
+//        if (!empty($filters['category_id'])) {
+//            $category = $this->categoryService->findOneById($filters['category_id']);
+//            if (null !== $category) {
+//                $resultFilters['category'] = $category;
+//            }
+//        }
+//
+//        if (!empty($filters['tag_id'])) {
+//            $tag = $this->tagService->findOneById($filters['tag_id']);
+//            if (null !== $tag) {
+//                $resultFilters['tag'] = $tag;
+//            }
+//        }
+//
+//        return $resultFilters;
+//    }
 
     /**
      * Constructor.

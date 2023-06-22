@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.post_create'|trans }}
+    {{ 'title_post_create'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.post_create'|trans }}</h1>
+    <h1>{{ 'title_post_create'|trans }}</h1>
     {% include 'default/_form.html.twig' with {
-        page_title: 'title.post_create'|trans,
+        page_title: 'title_post_create_message'|trans,
         form: form,
         submit_label: 'action.save'|trans,
         back_to_list_path: 'post_index',

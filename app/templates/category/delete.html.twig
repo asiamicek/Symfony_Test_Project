@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.category_delete'|trans({'%id%': category.id|default('')}) }}
+    {{ 'title_category_delete'|trans({'%id%': category.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.category_delete'|trans({'%id%': category.id|default('')}) }}</h1>
+    <h1>{{ 'title_category_delete'|trans({'%id%': category.id|default('')}) }}</h1>
     {% include 'default/_form.html.twig' with {
-        page_title: 'title.category_delete'|trans({'%id%': category.id|default('')}),
+        page_title: 'title_category_delete_message'|trans({'%id%': category.id|default('')}),
         form: form,
         submit_label: 'action.delete'|trans,
         back_to_list_path: 'category_index',

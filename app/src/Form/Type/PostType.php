@@ -54,7 +54,7 @@ class PostType extends AbstractType
             'title',
             TextType::class,
             [
-                'label' => 'label.title',
+                'label' => 'label_title',
                 'required' => true,
                 'attr' => ['max_length' => 64],
             ]);
@@ -86,7 +86,7 @@ class PostType extends AbstractType
             'tags',
             TextType::class,
             [
-                'label' => 'label.tags',
+                'label' => 'label_tags',
                 'required' => false,
                 'attr' => ['max_length' => 128],
             ]

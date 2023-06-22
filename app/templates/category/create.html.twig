@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.category_create'|trans }}
+    {{ 'title_category_create'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.category_create'|trans }}</h1>
+    <h1>{{ 'title_category_create'|trans }}</h1>
     {% include 'default/_form.html.twig' with {
-        page_title: 'title.category_create'|trans,
+        page_title: 'title_category_create_message'|trans,
         form: form,
         submit_label: 'action.save'|trans,
         back_to_list_path: 'category_index',

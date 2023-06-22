@@ -37,7 +37,7 @@ class CommentType extends AbstractType
             'content',
             TextareaType::class,
             [
-                'label' => 'label.content',
+                'label' => 'label_content',
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]);

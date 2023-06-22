@@ -6,6 +6,7 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -51,6 +52,26 @@ class CommentRepository extends ServiceEntityRepository
         return $this->getOrCreateQueryBuilder()
             ->orderBy('comment.createdAt', 'DESC');
     }
+
+    /**
+     * Query operation by post.
+     *
+     * @param Post                $post  Post entity
+     *
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryByPost(Post $post): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder->andWhere('comment.post = :post')
+            ->setParameter('post', $post);
+
+        return $queryBuilder;
+    }
+
+
 
     /**
      * Save entity

@@ -13,6 +13,24 @@
             <dt>{{ 'label.title'|trans }}</dt>
             <dd>{{  category.title }}</dd>
         </dl>
+{#        {% for post in posts %}#}
+{#            {% if post.category == category.id %}#}
+{#            <table>#}
+{#                <tbody>#}
+{#                <tr>#}
+{#                    <td>{{ post.id }}</td>#}
+{#                    <td>{{ post.title }}</td>#}
+
+
+{#                        <td><a href="{{ url('post_show', {id: post.id}) }}" title="{{ 'action.show'|trans }}">#}
+{#                                {{ 'action.show'|trans }}#}
+{#                            </a></td>#}
+
+{#                </tr>#}
+{#                </tbody>#}
+{#            </table>#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
         <p>
             <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}">
                 {{ 'action.back_to_list'|trans }}

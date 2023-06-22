@@ -40,6 +40,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email]
     private ?string $email;
 
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'string', length: 64, unique: true)]
+    private $nickname;
+
     /**
      * Roles.
      *
@@ -54,7 +58,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string|null
      */
     #[ORM\Column(type: 'string')]
-    #[Assert\NotBlank]
     private ?string $password;
 
     /**
@@ -85,6 +88,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): void
     {
         $this->email = $email;
+    }
+
+    /**
+     * Setter for nickname.
+     * @param string $nickname
+     * @return void
+     */
+    public function setNickname(string $nickname): void
+    {
+        $this->nickname = $nickname;
+    }
+
+    /**
+     * Getter for nickname.
+     * @return string|null
+     */
+    public function getNickname(): ?string
+    {
+        return $this->nickname;
     }
 
     /**
