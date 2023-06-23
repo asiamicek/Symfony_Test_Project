@@ -66,6 +66,8 @@ class CommentService implements CommentServiceInterface
         return $this->commentRepository->queryByPost($post)->getQuery()->getResult();
     }// end findByPost()
 
+
+
     /**
      * Save entity.
      *

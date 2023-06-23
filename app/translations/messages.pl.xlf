@@ -6,6 +6,18 @@
                 <source>action.back_to_list</source>
                 <target>Powrót do listy</target>
             </trans-unit>
+            <trans-unit id="main_title">
+                <source>main_title</source>
+                <target>Osiedlowe wieści - blog sąsiedzki</target>
+            </trans-unit>
+            <trans-unit id="index">
+                <source>index</source>
+                <target>Strona główna</target>
+            </trans-unit>
+            <trans-unit id="recent_posts">
+                <source>recent_posts</source>
+                <target>Ostatnio opublikowane posty</target>
+            </trans-unit>
             <trans-unit id="action_close">
                 <source>action_close</source>
                 <target>Zamknij</target>

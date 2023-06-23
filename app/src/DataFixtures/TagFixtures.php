@@ -6,6 +6,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Tag;
+use App\Entity\User;
 
 /**
  * Class TagFixtures.
@@ -26,13 +27,33 @@ class TagFixtures extends AbstractBaseFixtures
             return;
         }
 
-        $this->createMany(10, 'tags', function () {
+        $this->createMany(15, 'tags', function () {
             $tag = new Tag();
             $tag->setTitle($this->faker->word);
+
+            /** @var User $author */
+            $author = $this->getRandomReference('users');
+            $tag->setAuthor($author);
+
 
             return $tag;
         });
 
+
+
         $this->manager->flush();
+    }
+
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on.
+     *
+     * @return string[] of dependencies
+     *
+     * @psalm-return array{0: UserFixtures::class}
+     */
+    public function getDependencies(): array
+    {
+        return [ UserFixtures::class];
     }
 }

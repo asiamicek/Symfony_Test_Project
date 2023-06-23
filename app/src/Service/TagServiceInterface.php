@@ -7,6 +7,7 @@ namespace App\Service;
 
 use App\Entity\Tag;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Interface TagServiceInterface.
@@ -17,10 +18,10 @@ interface TagServiceInterface
      * Get paginated list.
      *
      * @param int $page Page number
-     *
+     *@param UserInterface $user    User entity
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface;
+    public function getPaginatedList(int $page, UserInterface $user): PaginationInterface;
 
     /**
      * Find by title.

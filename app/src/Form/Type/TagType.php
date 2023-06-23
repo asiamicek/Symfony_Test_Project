@@ -1,23 +1,20 @@
 <?php
 /**
- * Userdata type.
+ * Tag Form Type.
  */
 
-namespace App\Form;
+namespace App\Form\Type;
 
-use App\Entity\User;
+use App\Entity\Tag;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class UserdataType.
+ * Class TagType.
  */
-class UserdataType extends AbstractType
+class TagType extends AbstractType
 {
     /**
      * Builds the form.
@@ -25,30 +22,20 @@ class UserdataType extends AbstractType
      * This method is called for each type in the hierarchy starting from the
      * top most type. Type extensions can further modify the form.
      *
-     * @see FormTypeExtensionInterface::buildForm()
+     * @param FormBuilderInterface $builder The form builder
+     * @param array<string, mixed> $options The options
      *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array                                        $options The options
+     * @see FormTypeExtensionInterface::buildForm()
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'nickname',
+            'title',
             TextType::class,
             [
-                'label' => 'label_nickname',
+                'label' => 'label.title',
                 'required' => true,
                 'attr' => ['max_length' => 64],
-            ]
-        );
-
-        $builder->add(
-            'email',
-            EmailType::class,
-            [
-                'label' => 'label_email',
-                'required' => true,
-                'attr' => ['max_length' => 255],
             ]
         );
     }
@@ -56,11 +43,11 @@ class UserdataType extends AbstractType
     /**
      * Configures the options for this type.
      *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
+     * @param OptionsResolver $resolver The resolver for the options
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => User::class]);
+        $resolver->setDefaults(['data_class' => Tag::class]);
     }
 
     /**
@@ -73,6 +60,6 @@ class UserdataType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'user';
+        return 'tag';
     }
 }

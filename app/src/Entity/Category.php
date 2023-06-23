@@ -10,6 +10,8 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Class Category.
@@ -39,6 +41,15 @@ class Category
      */
     #[ORM\Column(type: 'string',length: 64)]
     private ?string $title = null;
+
+    /**
+     * Posts collection.
+     *
+     * @var Collection|ArrayCollection
+     */
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class)]
+    #[ORM\JoinColumn(name: "id", referencedColumnName: "category_id", nullable: false)]
+    private Collection $posts;
 
     /**
      * Getter for Id.
@@ -78,5 +89,48 @@ class Category
         $repository = $entityManager->getRepository(Category::class);
 
         return $repository->checkPostsByCategoryId($categoryId);
+    }
+
+    /**
+     * Getter for Posts
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Add Post function
+     *
+     * @param Post $post
+     * @return $this
+     */
+    public function addComment(Post $post): static
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove Post function
+     *
+     * @param Post $post
+     * @return $this
+     */
+    public function removePost(Post $post): static
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getCategory() === $this) {
+                $post->setCategory(null);
+            }
+        }
+
+        return $this;
     }
 }

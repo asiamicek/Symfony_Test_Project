@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\Type\UserPasswordType;
 use App\Form\UserdataType;
 use App\Repository\UserRepository;
 use App\Service\UserService;
@@ -112,7 +113,7 @@ class UserController extends AbstractController
      *
      * @param Request                      $request         HTTP request
      * @param User                         $user
-     * @param UserPasswordHasherInterface  $passwordHasher
+     *
      *
      * @return Response HTTP response
      *
@@ -129,7 +130,7 @@ class UserController extends AbstractController
      *     name="user_edit",
      * )
      */
-    public function edit(Request $request, User $user, UserPasswordHasherInterface $passwordHasher): Response
+    public function edit(Request $request, User $user): Response
     {
         $loggedInUser = $this->getUser();
 
@@ -145,14 +146,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $newPassword = $form->get('newPassword')->getData();
-
-            if ($newPassword) {
-                // Set the new password only if a new password is provided
-                $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
-                $user->setPassword($hashedPassword);
-            }
-
             $this->userService->save($user);
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -161,6 +154,60 @@ class UserController extends AbstractController
 
         return $this->render(
             'user/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
+     * Edit password action.
+     *
+     * @param Request $request HTTP request
+     * @param User    $user    User entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/{id}/edit-password',
+        name: 'user_edit_password',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: 'GET|PUT',
+    )]
+    public function editPassword(Request $request, User $user, UserPasswordHasherInterface  $passwordHasher): Response
+    {
+        $form = $this->createForm(
+            UserPasswordType::class,
+            $user,
+            [
+                'method' => 'PUT',
+                'action' => $this->generateUrl(
+                    'user_edit_password',
+                    ['id' => $user->getId()],
+                ),
+            ]
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('password')->getData();
+
+            if ($newPassword) {
+                // Set the new password only if a new password is provided
+                $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
+                $user->setPassword($hashedPassword);
+            }
+
+            $this->userService->save($user);
+            $this->addFlash('success', 'message.updated_successfully');
+
+            return $this->redirectToRoute('post_index');
+        }
+
+        return $this->render(
+            'user/edit_password.html.twig',
             [
                 'form' => $form->createView(),
                 'user' => $user,

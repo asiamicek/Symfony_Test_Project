@@ -119,7 +119,7 @@ class PostController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.created_successfully')
+                $this->translator->trans('message_created_successfully')
             );
 
             return $this->redirectToRoute('post_show',['id'=>$post->getId()]);
@@ -247,7 +247,7 @@ class PostController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comments = $this->commentService->queryByPost($post);
+            $comments = $this->commentService->findByPost($post);
             foreach ($comments as $comment) {
                 $this->commentService->delete($comment);
             }

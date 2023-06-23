@@ -5,32 +5,53 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.category_details'|trans({'%id%': category.id|default('')}) }}</h1>
+    <h1>{{ category.title }}</h1>
     {% if category is defined and category|length %}
-        <dl class="dl-horizontal">
-            <dt>{{ 'label.id'|trans }}</dt>
-            <dd>{{ category.id }}</dd>
-            <dt>{{ 'label.title'|trans }}</dt>
-            <dd>{{  category.title }}</dd>
-        </dl>
-{#        {% for post in posts %}#}
-{#            {% if post.category == category.id %}#}
-{#            <table>#}
-{#                <tbody>#}
-{#                <tr>#}
-{#                    <td>{{ post.id }}</td>#}
-{#                    <td>{{ post.title }}</td>#}
+
+        {% if category.posts is defined and category.posts|length %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ 'label_id'|trans }}</th>
+                    <th>{{ 'label_author'|trans }}</th>
+                    <th>{{ 'label_title'|trans }}</th>
+                    <th>{{ 'label_updated_at'|trans }}</th>
+                    <th>{{ 'label_actions'|trans }}</th>
+                </tr>
+                </thead>
+                {% for post in category.posts %}
+                    {#                    {% if comment.status %}#}
+                    <tbody>
+                    <tr>
+                        <td>{{ post.id }}</td>
+                        <td>{{ post.author.nickname }}</td>
+                        <td>{{ post.title }}</td>
+                        <td>{{ post.updatedAt|date('d-m-Y') }}</td>
+                        <td>
+                            <a href="{{ url('post_show', {id: post.id}) }}" title="{{ 'action.show'|trans }}">
+                                {{ 'action.show'|trans }}
+                            </a>
+
+                            {% if is_granted('EDIT', post) %}
+                                <a href="{{ url('post_edit', {id: post.id}) }}" title="{{ 'action.edit'|trans }}">
+                                    {{ 'action.edit'|trans }}
+                                </a>
+                            {% endif %}
+                            {% if is_granted('DELETE', post) %}
+                                <a href="{{ url('post_delete', {id: post.id}) }}" title="{{ 'action.delete'|trans }}">
+                                        {{ 'action.delete'|trans }}
+                                </a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                    </tbody>
+                    {#                    {% endif %}#}
+                {% endfor %}
+            </table>
+        {% endif %}
 
 
-{#                        <td><a href="{{ url('post_show', {id: post.id}) }}" title="{{ 'action.show'|trans }}">#}
-{#                                {{ 'action.show'|trans }}#}
-{#                            </a></td>#}
-
-{#                </tr>#}
-{#                </tbody>#}
-{#            </table>#}
-{#            {% endif %}#}
-{#        {% endfor %}#}
         <p>
             <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}">
                 {{ 'action.back_to_list'|trans }}

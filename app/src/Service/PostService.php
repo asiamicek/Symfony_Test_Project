@@ -124,6 +124,14 @@ class PostService implements PostServiceInterface
         );
     }
 
+    /**
+     * @return array
+     */
+    public function getAllPosts(): array
+    {
+        return $this->postRepository->findAll();
+    }
+
 
     /**
      * Save entity.

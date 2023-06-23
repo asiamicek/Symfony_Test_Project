@@ -10,6 +10,7 @@ use App\Repository\TagRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class TagService.
@@ -42,13 +43,14 @@ class TagService implements TagServiceInterface
      * Get paginated list.
      *
      * @param int $page Page number
+     * @param UserInterface $user    User entity
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface
+    public function getPaginatedList(int $page, UserInterface $user): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->tagRepository->queryAll(),
+            $this->tagRepository->queryByAuthor($user),
             $page,
             TagRepository::PAGINATOR_ITEMS_PER_PAGE
         );

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Tag;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
@@ -81,6 +82,24 @@ class TagRepository extends ServiceEntityRepository
     {
         $this->_em->remove($tag);
         $this->_em->flush();
+    }
+
+    /**
+     * Query tags by author.
+     *
+     * @param \App\Entity\User $user    User entity
+     *
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryByAuthor(User $user): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder->andWhere('tag.author = :author')
+            ->setParameter('author', $user);
+
+        return $queryBuilder;
     }
 
 //    /**

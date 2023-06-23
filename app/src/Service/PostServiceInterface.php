@@ -37,6 +37,10 @@ interface PostServiceInterface
      */
     public function getPaginatedList(int $page, array $filters = []): PaginationInterface;
 
+    /**
+     * @return array
+     */
+    public function getAllPosts(): array;
 //    /**
 //     * Find by title.
 //     *
