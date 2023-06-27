@@ -113,8 +113,8 @@ class TagController extends AbstractController
     public function create(Request $request): Response
     {
         $tag = new Tag();
-        $user = $this->getUser();
-        $tag->setAuthor($user);
+//        $user = $this->getUser();
+//        $tag->setAuthor($user);
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
 
@@ -122,7 +122,7 @@ class TagController extends AbstractController
             $this->tagService->save($tag);
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.created_successfully')
+                $this->translator->trans('message_created_successfully')
             );
 
             return $this->redirectToRoute('tag_index');
@@ -171,7 +171,7 @@ class TagController extends AbstractController
             $this->tagService->save($tag);
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.updated_successfully')
+                $this->translator->trans('message_updated_successfully')
             );
 
             return $this->redirectToRoute('tag_index');
@@ -224,7 +224,7 @@ class TagController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.deleted_successfully')
+                $this->translator->trans('message_deleted_successfully')
             );
 
             return $this->redirectToRoute('tag_index');

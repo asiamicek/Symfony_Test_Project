@@ -1,0 +1,16 @@
+<?php
+
+namespace Enum;
+
+use App\Entity\Enum\UserRole;
+use App\Tests\BaseTest;
+use PHPUnit\Framework\TestCase;
+
+class UserRoleTest extends BaseTest
+{
+    public function testLabel()
+    {
+        self::assertEquals('label.role_user', UserRole::ROLE_USER->label());
+        self::assertEquals('label.role_admin', UserRole::ROLE_ADMIN->label());
+    }
+}

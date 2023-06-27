@@ -29,14 +29,14 @@ class Tag
     #[ORM\Column(length: 64)]
     private ?string $title = null;
 
-    /**
-     * Author.
-     *
-     * @var User|null
-     */
-    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $author = null;
+//    /**
+//     * Author.
+//     *
+//     * @var User|null
+//     */
+//    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
+//    #[ORM\JoinColumn(nullable: false)]
+//    private ?User $author = null;
 
     public function getId(): ?int
     {
@@ -55,15 +55,15 @@ class Tag
         return $this;
     }
 
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?User $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
+//    public function getAuthor(): ?User
+//    {
+//        return $this->author;
+//    }
+//
+//    public function setAuthor(?User $author): static
+//    {
+//        $this->author = $author;
+//
+//        return $this;
+//    }
 }

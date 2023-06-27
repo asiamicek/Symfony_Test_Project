@@ -44,11 +44,11 @@ class Category
 
     /**
      * Posts collection.
-     *
+     * @ORM\Column(nullable=true)
      * @var Collection|ArrayCollection
      */
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class)]
-    #[ORM\JoinColumn(name: "id", referencedColumnName: "category_id", nullable: false)]
+    #[ORM\JoinColumn(name: "id", referencedColumnName: "category_id", nullable: true)]
     private Collection $posts;
 
     /**

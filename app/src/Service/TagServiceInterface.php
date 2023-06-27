@@ -14,14 +14,22 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 interface TagServiceInterface
 {
+//    /**
+//     * Get paginated list.
+//     *
+//     * @param int $page Page number
+//     *@param UserInterface $user    User entity
+//     * @return PaginationInterface<string, mixed> Paginated list
+//     */
+//    public function getPaginatedList(int $page, UserInterface $user): PaginationInterface;
     /**
      * Get paginated list.
      *
      * @param int $page Page number
-     *@param UserInterface $user    User entity
+     *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page, UserInterface $user): PaginationInterface;
+    public function getPaginatedList(int $page): PaginationInterface;
 
     /**
      * Find by title.

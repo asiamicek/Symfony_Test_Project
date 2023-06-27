@@ -84,22 +84,34 @@ class TagRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
+//    /**
+//     * Query tags by author.
+//     *
+//     * @param \App\Entity\User $user    User entity
+//     *
+//     *
+//     * @return \Doctrine\ORM\QueryBuilder Query builder
+//     */
+//    public function queryByAuthor(User $user): QueryBuilder
+//    {
+//        $queryBuilder = $this->queryAll();
+//
+//        $queryBuilder->andWhere('tag.author = :author')
+//            ->setParameter('author', $user);
+//
+//        return $queryBuilder;
+//    }
+
     /**
-     * Query tags by author.
-     *
-     * @param \App\Entity\User $user    User entity
-     *
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @throws NonUniqueResultException
      */
-    public function queryByAuthor(User $user): QueryBuilder
+    public function findOneById($id): ?Tag
     {
-        $queryBuilder = $this->queryAll();
-
-        $queryBuilder->andWhere('tag.author = :author')
-            ->setParameter('author', $user);
-
-        return $queryBuilder;
+        return $this->createQueryBuilder('tag')
+            ->andWhere('tag.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 //    /**

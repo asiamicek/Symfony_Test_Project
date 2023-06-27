@@ -62,8 +62,9 @@ class PostService implements PostServiceInterface
      * @param array<string, int> $filters Raw filters from request
      *
      * @return array<string, object> Result array of filters
+     * @throws NonUniqueResultException
      */
-    private function prepareFilters(array $filters): array
+    public function prepareFilters(array $filters): array
     {
         $resultFilters = [];
         if (!empty($filters['category_id'])) {
@@ -109,10 +110,11 @@ class PostService implements PostServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int  $page   Page number
+     * @param int $page Page number
      * @param array<string, int> $filters Filters array
      *
      * @return PaginationInterface<string, mixed> Paginated list
+     * @throws NonUniqueResultException
      */
     public function getPaginatedList(int $page, array $filters = []): PaginationInterface
     {

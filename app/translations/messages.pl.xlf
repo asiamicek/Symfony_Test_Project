@@ -411,6 +411,10 @@
                 <source>message_record_not_found</source>
                 <target>Nie znaleziono rekordu</target>
             </trans-unit>
+            <trans-unit id="hello_login">
+                <source>hello_login</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
 
         </body>
     </file>

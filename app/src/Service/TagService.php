@@ -39,18 +39,34 @@ class TagService implements TagServiceInterface
         $this->paginator = $paginator;
     }
 
+//    /**
+//     * Get paginated list.
+//     *
+//     * @param int $page Page number
+//     * @param UserInterface $user    User entity
+//     *
+//     * @return PaginationInterface<string, mixed> Paginated list
+//     */
+//    public function getPaginatedList(int $page, UserInterface $user): PaginationInterface
+//    {
+//        return $this->paginator->paginate(
+//            $this->tagRepository->queryByAuthor($user),
+//            $page,
+//            TagRepository::PAGINATOR_ITEMS_PER_PAGE
+//        );
+//    }
     /**
      * Get paginated list.
      *
      * @param int $page Page number
-     * @param UserInterface $user    User entity
+     *
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function getPaginatedList(int $page, UserInterface $user): PaginationInterface
+    public function getPaginatedList(int $page): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->tagRepository->queryByAuthor($user),
+            $this->tagRepository->queryAll(),
             $page,
             TagRepository::PAGINATOR_ITEMS_PER_PAGE
         );
