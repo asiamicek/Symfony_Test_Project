@@ -88,6 +88,7 @@ class PostControllerTest extends BaseTest
             'post[title]' => 'Testing',
             'post[content]' => 'Testing',
             'post[category]' => $category->getId(),
+            'post[tags]' => 'Testing',
         ];
 
         $this->assertNotEmpty($formData['post[title]']);

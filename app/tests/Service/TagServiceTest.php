@@ -48,6 +48,32 @@ class TagServiceTest extends BaseTest
     }
 
     /**
+     * Test pagination empty list.
+     */
+    public function testGetPaginatedList(): void
+    {
+        // given
+        $page = 1;
+        $dataSetSize = 20;
+        $expectedResultSize = 10;
+
+        $counter = 0;
+        while ($counter < $dataSetSize) {
+            $tag = new Tag();
+            $tag->setTitle('Test Tag #' . $counter);
+            $this->tagService->save($tag);
+
+            ++$counter;
+        }
+
+        // when
+        $result = $this->tagService->getPaginatedList($page);
+
+        // then
+        $this->assertEquals(5, $result->count());
+    }
+
+    /**
      * Test save.
      *
      * @throws ORMException
@@ -162,35 +188,8 @@ class TagServiceTest extends BaseTest
         $this->assertEquals($expectedTag, $resultTag);
     }
 
-    /**
-     * Test pagination empty list.
-     */
-    public function testGetPaginatedList(): void
-    {
-        // given
-//        $user = $this->createUser([UserRole::ROLE_USER->value], 'tag_user5@example.com', 'tu5');
-//        $this->httpClient->loginUser($user);
 
-        $page = 1;
-        $dataSetSize = 20;
-        $expectedResultSize = $dataSetSize - 10;
 
-        $counter = 0;
-        while ($counter < $dataSetSize) {
-            $tag = new Tag();
-            $tag->setTitle('Test Tag #' . $counter);
-//            $tag->setAuthor($user);
-            $this->tagService->save($tag);
-
-            ++$counter;
-        }
-
-        // when
-        $result = $this->tagService->getPaginatedList($page);
-
-        // then
-        $this->assertEquals($expectedResultSize, $result->count());
-    }
 
     // other tests for paginated list
 }

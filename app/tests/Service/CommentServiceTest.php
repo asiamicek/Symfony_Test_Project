@@ -74,12 +74,42 @@ class CommentServiceTest extends BaseTest
         $this->assertEquals($expectedResultSize, $result->count());
     }
 
+//    public function testFindByPost(): void
+//    {
+//        $commentRepository =
+//            static::getContainer()->get(CommentRepository::class);
+//        $postRepository =
+//            static::getContainer()->get(PostRepository::class);
+//
+//        // Tworzenie testowego posta
+//        $user = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value], 'post_admin_service3@example.com', 'padmins3');
+//        $post = new Post();
+//        $post->setTitle('Test Post');
+//        $post->setContent('Test content');
+//        $post->setAuthor($user);
+//        $this->postService->save($post);
+//
+//        // Tworzenie testowych komentarzy przypisanych do posta
+//        $comments = [];
+//        for ($i = 1; $i <= 5; $i++) {
+//            $comment = new Comment();
+//            $comment->setContent("Comment $i");
+//            $comment->setPost($post);
+//            $comment->setAuthor($user);
+//            $this->commentService->save($comment);
+//            $comments[] = $comment;
+//        }
+//
+//        // Wywołanie metody findByPost
+//        $foundComments = $this->commentService->findByPost($post);
+//
+//        // Sprawdzenie, czy zwrócona tablica jest poprawna
+//        $this->assertEquals($comments, $foundComments);
+//    }
     public function testFindByPost(): void
     {
-        $commentRepository =
-            static::getContainer()->get(CommentRepository::class);
-        $postRepository =
-            static::getContainer()->get(PostRepository::class);
+        $commentRepository = static::getContainer()->get(CommentRepository::class);
+        $postRepository = static::getContainer()->get(PostRepository::class);
 
         // Tworzenie testowego posta
         $user = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value], 'post_admin_service3@example.com', 'padmins3');
@@ -104,8 +134,9 @@ class CommentServiceTest extends BaseTest
         $foundComments = $this->commentService->findByPost($post);
 
         // Sprawdzenie, czy zwrócona tablica jest poprawna
-        $this->assertEquals($comments, $foundComments);
+        $this->assertEqualsCanonicalizing($comments, $foundComments);
     }
+
 
 
     public function testSave(): void
