@@ -72,14 +72,18 @@
         {% endif %}
 
         <br>
+
         <h5>{{ 'action.create_comment'|trans }}</h5>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <div class="form-group row float-sm-right">
             <input id="wyslij" type="submit" value="Wyślij"  style=" width: 20%; margin-left: 79%;" class="btn btn-primary"/>
         </div>
         {{ form_end(form) }}
-
+    {% else %}
+        <p>{{ 'action.create_comment_no'|trans }}</p>
+    {% endif %}
         <p>
             <a href="{{ url('post_index') }}" title="{{ 'action.back_to_list'|trans }}">
                 {{ 'action.back_to_list'|trans }}

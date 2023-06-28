@@ -5,6 +5,7 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\Enum\UserRole;
 use App\Entity\Post;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -40,8 +41,6 @@ class PostVoter extends Voter
 
     /**
      * Security helper.
-     *
-     * @var Security
      */
     private Security $security;
 
@@ -113,7 +112,7 @@ class PostVoter extends Voter
      */
     private function canEdit(Post $post, User $user): bool
     {
-        return $post->getAuthor() === $user;
+        return $post->getAuthor() === $user or in_array(UserRole::ROLE_ADMIN->value, $user->getRoles());
     }
 
     /**
@@ -139,6 +138,6 @@ class PostVoter extends Voter
      */
     private function canDelete(Post $post, User $user): bool
     {
-        return $post->getAuthor() === $user;
+        return $post->getAuthor() === $user or in_array(UserRole::ROLE_ADMIN->value, $user->getRoles());
     }
 }

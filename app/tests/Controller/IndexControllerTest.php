@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller;
+namespace App\Tests\Controller;
 
 use App\Controller\IndexController;
 use App\Entity\Enum\UserRole;

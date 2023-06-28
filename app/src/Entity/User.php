@@ -22,8 +22,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * Primary key.
-     *
-     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,14 +30,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Email.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Email]
     private ?string $email;
 
+    /**
+     * Nickname.
+     */
     #[Assert\NotBlank]
     #[ORM\Column(type: 'string', length: 64, unique: true)]
     private $nickname;
@@ -54,8 +53,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Password.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string')]
     private ?string $password;
@@ -92,8 +89,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Setter for nickname.
-     * @param string $nickname
-     * @return void
      */
     public function setNickname(string $nickname): void
     {
@@ -102,7 +97,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Getter for nickname.
-     * @return string|null
      */
     public function getNickname(): ?string
     {

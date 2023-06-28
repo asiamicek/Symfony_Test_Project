@@ -8,10 +8,7 @@ use App\Entity\Tag;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
-
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -38,13 +35,16 @@ class PostRepository extends ServiceEntityRepository
      * Query all records.
      *
      * @param array<string, object> $filters Filters
+     *
      * @return QueryBuilder Query builder
      */
     public function queryAll(array $filters): QueryBuilder
     {
         $queryBuilder = $this->getOrCreateQueryBuilder()
-            ->select('partial post.{id, createdAt, updatedAt, title, content}',
-                'partial post.{id, title}')
+            ->select(
+                'partial post.{id, createdAt, updatedAt, title, content}',
+                'partial post.{id, title}'
+            )
             ->join('post.category', 'category')
             ->leftJoin('post.comments', 'comments')
             ->leftJoin('post.tags', 'tags')
@@ -53,7 +53,6 @@ class PostRepository extends ServiceEntityRepository
 
         return $this->applyFiltersToList($queryBuilder, $filters);
     }
-
 
     /**
      * Query tasks by author.
@@ -72,16 +71,14 @@ class PostRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
-
-
     /**
-    * Apply filters to paginated list.
-    *
-    * @param QueryBuilder          $queryBuilder Query builder
-    * @param array<string, object> $filters      Filters array
-    *
-    * @return QueryBuilder Query builder
-    */
+     * Apply filters to paginated list.
+     *
+     * @param QueryBuilder          $queryBuilder Query builder
+     * @param array<string, object> $filters      Filters array
+     *
+     * @return QueryBuilder Query builder
+     */
     private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
     {
         if (isset($filters['category']) && $filters['category'] instanceof Category) {
@@ -97,7 +94,6 @@ class PostRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
-
     /**
      * Get or create new query builder.
      *
@@ -110,37 +106,35 @@ class PostRepository extends ServiceEntityRepository
         return $queryBuilder ?? $this->createQueryBuilder('post');
     }
 
-//    /**
-//     * Prepare filters for the tasks list.
-//     *
-//     * @param array<string, int> $filters Raw filters from request
-//     *
-//     * @return array<string, object> Result array of filters
-//     */
-//    private function prepareFilters(array $filters): array
-//    {
-//        $resultFilters = [];
-//        if (!empty($filters['category_id'])) {
-//            $category = $this->categoryService->findOneById($filters['category_id']);
-//            if (null !== $category) {
-//                $resultFilters['category'] = $category;
-//            }
-//        }
-//
-//        if (!empty($filters['tag_id'])) {
-//            $tag = $this->tagService->findOneById($filters['tag_id']);
-//            if (null !== $tag) {
-//                $resultFilters['tag'] = $tag;
-//            }
-//        }
-//
-//        return $resultFilters;
-//    }
+    //    /**
+    //     * Prepare filters for the tasks list.
+    //     *
+    //     * @param array<string, int> $filters Raw filters from request
+    //     *
+    //     * @return array<string, object> Result array of filters
+    //     */
+    //    private function prepareFilters(array $filters): array
+    //    {
+    //        $resultFilters = [];
+    //        if (!empty($filters['category_id'])) {
+    //            $category = $this->categoryService->findOneById($filters['category_id']);
+    //            if (null !== $category) {
+    //                $resultFilters['category'] = $category;
+    //            }
+    //        }
+    //
+    //        if (!empty($filters['tag_id'])) {
+    //            $tag = $this->tagService->findOneById($filters['tag_id']);
+    //            if (null !== $tag) {
+    //                $resultFilters['tag'] = $tag;
+    //            }
+    //        }
+    //
+    //        return $resultFilters;
+    //    }
 
     /**
      * Constructor.
-     *
-     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -158,6 +152,9 @@ class PostRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
+    /**
+     * Remove entity.
+     */
     public function remove(Post $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -178,28 +175,28 @@ class PostRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-//    /**
-//     * @return Post[] Returns an array of Post objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Post[] Returns an array of Post objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('p.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?Post
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Post
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

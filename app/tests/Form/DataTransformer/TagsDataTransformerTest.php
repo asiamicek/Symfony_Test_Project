@@ -1,6 +1,6 @@
 <?php
 
-namespace DataTransformer;
+namespace App\Tests\Form\DataTransformer;
 
 use App\Entity\Tag;
 use App\Form\DataTransformer\TagsDataTransformer;

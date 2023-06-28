@@ -5,12 +5,15 @@
 {% endblock %}
 
 {% block body %}
+
     <h1>{{ 'title_post_index'|trans }}</h1>
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     <a href="{{ url('post_create') }}">
         <button  onclick="" style="margin-top: 20px; width: 20%; margin-bottom:20px;" class="btn btn-primary">
             {{ 'post_create'|trans }}
         </button>
     </a>
+    {% endif %}
 
     {% if pagination is defined and pagination.items|length %}
 
@@ -52,7 +55,7 @@
                             &nbsp;
                         {% endif %}
                     </td>
-                    <td>{{ post.author.email }}</td>
+                    <td>{{ post.author.nickname }}</td>
                     <td>
                         <a href="{{ url('post_show', {id: post.id}) }}" title="{{ 'action.show'|trans }}">
                             {{ 'action.show'|trans }}

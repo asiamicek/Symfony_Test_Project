@@ -3,7 +3,7 @@
  * Tag service tests.
  */
 
-namespace Service;
+namespace App\Tests\Service;
 
 use App\Entity\Enum\UserRole;
 use App\Entity\Tag;

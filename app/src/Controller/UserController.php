@@ -8,18 +8,16 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\Type\UserPasswordType;
 use App\Form\UserdataType;
-use App\Repository\UserRepository;
 use App\Service\UserService;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class UserController.
@@ -30,19 +28,19 @@ class UserController extends AbstractController
 {
     /**
      * User service.
-     *
-     * @var \App\Service\UserService
      */
     private UserService $userService;
 
     /**
      * UserController constructor.
      *
-     * @param \App\Service\UserService $userService User service
+     * @param UserService         $userService User service
+     * @param TranslatorInterface $translator  Translator interface
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, TranslatorInterface $translator)
     {
         $this->userService = $userService;
+        $this->translator = $translator;
     }
 
     /**
@@ -57,10 +55,15 @@ class UserController extends AbstractController
      *     methods={"GET"},
      *     name="user_index",
      * )
-     * @IsGranted("ROLE_ADMIN")
      */
     public function index(Request $request): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
+
+            return $this->redirectToRoute('index');
+        }
+
         $page = $request->query->getInt('page', 1);
         $pagination = $this->userService->createPaginatedList($page);
 
@@ -100,9 +103,9 @@ class UserController extends AbstractController
             );
         }
         if ($user !== $log) {
-            $this->addFlash('warning', 'message_item_not_found');
+            $this->addFlash('warning', 'message.action_impossible');
 
-            return $this->redirectToRoute('post_index');
+            return $this->redirectToRoute('index');
         }
 
         return true;
@@ -111,9 +114,8 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param Request                      $request         HTTP request
-     * @param User                         $user
-     *
+     * @param Request $request HTTP request
+     * @param User    $user    User
      *
      * @return Response HTTP response
      *
@@ -122,24 +124,37 @@ class UserController extends AbstractController
      * @throws \Symfony\Component\Form\Exception\LogicException
      * @throws \Symfony\Component\Form\Exception\OutOfBoundsException
      * @throws \Symfony\Component\Form\Exception\RuntimeException
-     *
-     * @Route(
-     *     "/{id}/edit",
-     *     methods={"GET", "PUT"},
-     *     requirements={"id": "[1-9]\d*"},
-     *     name="user_edit",
-     * )
      */
+    #[Route(
+        path: '/{id}/edit',
+        name: 'user_edit',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: ['GET', 'PUT'],
+    )]
     public function edit(Request $request, User $user): Response
     {
         $loggedInUser = $this->getUser();
+        //        if ($post->getAuthor() !== $this->getUser() and !(in_array(UserRole::ROLE_ADMIN->value, $user->getRoles()))) {
+        //            $this->addFlash(
+        //                'warning',
+        //                $this->translator->trans('message_action_impossible')
+        //            );
+        //
+        //            return $this->redirectToRoute('index');
+        //        }
 
         // Check if the logged-in user is not null and has the necessary permissions
         if (!$this->isGranted('ROLE_ADMIN') && $loggedInUser !== $user) {
             // Handle the case when the user is not authorized to edit this user
             // Redirect or show an error message
             // For example:
-            throw $this->createAccessDeniedException('You are not authorized to edit this user.');
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message_action_impossible')
+            );
+
+            return $this->redirectToRoute('index');
+            //            throw $this->createAccessDeniedException('You are not authorized to edit this user.');
         }
 
         $form = $this->createForm(UserdataType::class, $user, ['method' => 'PUT']);
@@ -164,8 +179,9 @@ class UserController extends AbstractController
     /**
      * Edit password action.
      *
-     * @param Request $request HTTP request
-     * @param User    $user    User entity
+     * @param Request                     $request        HTTP request
+     * @param User                        $user           User entity
+     * @param UserPasswordHasherInterface $passwordHasher User Password Hasher Interface
      *
      * @return Response HTTP response
      */
@@ -175,8 +191,23 @@ class UserController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT',
     )]
-    public function editPassword(Request $request, User $user, UserPasswordHasherInterface  $passwordHasher): Response
+    public function editPassword(Request $request, User $user, UserPasswordHasherInterface $passwordHasher): Response
     {
+        $loggedInUser = $this->getUser();
+        // Check if the logged-in user is not null and has the necessary permissions
+        if ($loggedInUser !== $user) {
+            // Handle the case when the user is not authorized to edit this user
+            // Redirect or show an error message
+            // For example:
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message_action_impossible')
+            );
+
+            return $this->redirectToRoute('index');
+            //            throw $this->createAccessDeniedException('You are not authorized to edit this user.');
+        }
+
         $form = $this->createForm(
             UserPasswordType::class,
             $user,
@@ -203,7 +234,7 @@ class UserController extends AbstractController
             $this->userService->save($user);
             $this->addFlash('success', 'message.updated_successfully');
 
-            return $this->redirectToRoute('post_index');
+            return $this->redirectToRoute('index');
         }
 
         return $this->render(
@@ -215,87 +246,83 @@ class UserController extends AbstractController
         );
     }
 
-
-//    /**
-//     * Edit action.
-//     *
-//     * @param Request                      $request         HTTP request
-//     * @param User                         $user
-//     * @param UserPasswordEncoderInterface $passwordEncoder
-//     *
-//     * @return Response HTTP response
-//     *
-//     * @throws ORMException
-//     * @throws OptimisticLockException
-//     * @throws \Symfony\Component\Form\Exception\LogicException
-//     * @throws \Symfony\Component\Form\Exception\OutOfBoundsException
-//     * @throws \Symfony\Component\Form\Exception\RuntimeException
-//     *
-//     * @Route(
-//     *     "/{id}/edit",
-//     *     methods={"GET", "PUT"},
-//     *     requirements={"id": "[1-9]\d*"},
-//     *     name="user_edit",
-//     * )
-//     */
-//    public function edit(Request $request, User $user, UserPasswordHasherInterface $passwordHasher,): Response
-//    {
-//        $log = $this->getUser();
-//        if ($this->isGranted('ROLE_ADMIN')) {
-//            $form = $this->createForm(UserdataType::class, $user, ['method' => 'PUT']);
-//            $form->handleRequest($request);
-//
-//            if ($form->isSubmitted() && $form->isValid()) {
-//                $user->setPassword(
-//                    $passwordHasher->hashPassword(
-//                        $user,
-//                        $form->get('newPassword')->getData()
-//                    )
-//                );
-//                $this->userService->save($user);
-//                $this->addFlash('success', 'message_updated_successfully');
-//
-//                return $this->redirectToRoute('user_index');
-//            }
-//
-//            return $this->render(
-//                'user/edit.html.twig',
-//                [
-//                    'form' => $form->createView(),
-//                    'user' => $user,
-//                ]
-//            );
-//        } else {
-//            $form = $this->createForm(UserdataType::class, $log, ['method' => 'PUT']);
-//            $form->handleRequest($request);
-//
-//            if ($form->isSubmitted() && $form->isValid()) {
-////                $newPassword = $form->get('newPassword')->getData();
-////                $userRepository->save($log, $newPassword);
-//                $log = $this->getUser();
-//                $user->setPassword(
-//                    $passwordHasher->hashPassword(
-//                        $log,
-//                        $form->get('newPassword')->getData()
-//                    )
-//                );
-//                $this->userService->save($user);
-//
-//                $this->addFlash('success', 'message_updated_successfully');
-//
-//                return $this->redirectToRoute('post_index');
-//            }
-//
-//            return $this->render(
-//                'user/edit.html.twig',
-//                [
-//                    'form' => $form->createView(),
-//                    'user' => $log,
-//                ]
-//            );
-//        }
-//    }
-
-
-
+    //    /**
+    //     * Edit action.
+    //     *
+    //     * @param Request                      $request         HTTP request
+    //     * @param User                         $user
+    //     * @param UserPasswordEncoderInterface $passwordEncoder
+    //     *
+    //     * @return Response HTTP response
+    //     *
+    //     * @throws ORMException
+    //     * @throws OptimisticLockException
+    //     * @throws \Symfony\Component\Form\Exception\LogicException
+    //     * @throws \Symfony\Component\Form\Exception\OutOfBoundsException
+    //     * @throws \Symfony\Component\Form\Exception\RuntimeException
+    //     *
+    //     * @Route(
+    //     *     "/{id}/edit",
+    //     *     methods={"GET", "PUT"},
+    //     *     requirements={"id": "[1-9]\d*"},
+    //     *     name="user_edit",
+    //     * )
+    //     */
+    //    public function edit(Request $request, User $user, UserPasswordHasherInterface $passwordHasher,): Response
+    //    {
+    //        $log = $this->getUser();
+    //        if ($this->isGranted('ROLE_ADMIN')) {
+    //            $form = $this->createForm(UserdataType::class, $user, ['method' => 'PUT']);
+    //            $form->handleRequest($request);
+    //
+    //            if ($form->isSubmitted() && $form->isValid()) {
+    //                $user->setPassword(
+    //                    $passwordHasher->hashPassword(
+    //                        $user,
+    //                        $form->get('newPassword')->getData()
+    //                    )
+    //                );
+    //                $this->userService->save($user);
+    //                $this->addFlash('success', 'message_updated_successfully');
+    //
+    //                return $this->redirectToRoute('user_index');
+    //            }
+    //
+    //            return $this->render(
+    //                'user/edit.html.twig',
+    //                [
+    //                    'form' => $form->createView(),
+    //                    'user' => $user,
+    //                ]
+    //            );
+    //        } else {
+    //            $form = $this->createForm(UserdataType::class, $log, ['method' => 'PUT']);
+    //            $form->handleRequest($request);
+    //
+    //            if ($form->isSubmitted() && $form->isValid()) {
+    // //                $newPassword = $form->get('newPassword')->getData();
+    // //                $userRepository->save($log, $newPassword);
+    //                $log = $this->getUser();
+    //                $user->setPassword(
+    //                    $passwordHasher->hashPassword(
+    //                        $log,
+    //                        $form->get('newPassword')->getData()
+    //                    )
+    //                );
+    //                $this->userService->save($user);
+    //
+    //                $this->addFlash('success', 'message_updated_successfully');
+    //
+    //                return $this->redirectToRoute('post_index');
+    //            }
+    //
+    //            return $this->render(
+    //                'user/edit.html.twig',
+    //                [
+    //                    'form' => $form->createView(),
+    //                    'user' => $log,
+    //                ]
+    //            );
+    //        }
+    //    }
 }

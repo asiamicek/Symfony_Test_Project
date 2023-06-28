@@ -3,7 +3,7 @@
  * Category Service Test.
  */
 
-namespace Service;
+namespace App\Tests\Service;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;

@@ -6,12 +6,11 @@
 namespace App\Entity;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Repository\CommentRepository;
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * Class Comment.
@@ -22,8 +21,6 @@ class Comment
 {
     /**
      * Id.
-     *
-     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,17 +29,12 @@ class Comment
 
     /**
      * Content.
-     *
-     * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $content = null;
 
     /**
      * Created at.
-     *
-     * @var DateTimeImmutable|null
-     *
      */
     #[ORM\Column(type: 'datetime_immutable')]
     #[Gedmo\Timestampable(on: 'create')]
@@ -50,17 +42,13 @@ class Comment
 
     /**
      * Post.
-     *
-     * @var Post|null
      */
-    #[ORM\ManyToOne(inversedBy: 'comment')]
+    #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
 
     /**
      * Author.
-     *
-     * @var User|null
      */
     #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(nullable: false)]
@@ -68,11 +56,8 @@ class Comment
     #[Assert\Type(User::class)]
     private ?User $author = null;
 
-
     /**
      * Getter for id.
-     *
-     * @return int|null
      */
     public function getId(): ?int
     {
@@ -80,9 +65,7 @@ class Comment
     }
 
     /**
-     * Getter for content
-     *
-     * @return string|null
+     * Getter for content.
      */
     public function getContent(): ?string
     {
@@ -92,7 +75,6 @@ class Comment
     /**
      * Setter for content.
      *
-     * @param string $content
      * @return $this
      */
     public function setContent(string $content): static
@@ -104,8 +86,6 @@ class Comment
 
     /**
      * Getter for created at.
-     *
-     * @return \DateTimeImmutable|null
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -115,7 +95,6 @@ class Comment
     /**
      * Setter for created at.
      *
-     * @param \DateTimeImmutable $createdAt
      * @return $this
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
@@ -127,8 +106,6 @@ class Comment
 
     /**
      * Getter for Post.
-     *
-     * @return Post|null
      */
     public function getPost(): ?Post
     {
@@ -138,7 +115,6 @@ class Comment
     /**
      * Setter for Post.
      *
-     * @param Post|null $post
      * @return $this
      */
     public function setPost(?Post $post): static
@@ -147,28 +123,16 @@ class Comment
 
         return $this;
     }
-//
-//    /**
-//     * Setter for Category.
-//     *
-//     * @param Category|null $category
-//     * @return void
-//     */
-//    public function setCategory(?Category $category): void
-//    {
-//        $this->category = $category;
-//    }
 
-public function getAuthor(): ?User
-{
-    return $this->author;
-}
+    /**
+     * Setter for author.
+     *
+     * @return $this
+     */
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
-public function setAuthor(?User $author): static
-{
-    $this->author = $author;
-
-    return $this;
-}
-
+        return $this;
+    }
 }

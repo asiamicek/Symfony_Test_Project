@@ -31,11 +31,8 @@
                     <td>{{ users.email }}</td>
                     {#                    <td>{{ users.password }}</td>#}
                     <td>
-                        <a href="{{ url('user_show', {id: users.id}) }}" title="{{ 'action_show'|trans }}">
+                        <a href="{{ url('user_show', {id: users.id}) }}" title="{{ 'action.show'|trans }}">
                             {{ 'action.show'|trans }}
-                        </a>
-                        <a href="{{ url('user_edit', {id: users.id}) }}" title="{{ 'action_edit'|trans }}" id="op">
-                            {{ 'action.edit'|trans }}
                         </a>
                     </td>
                 </tr>

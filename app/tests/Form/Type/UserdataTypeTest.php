@@ -1,6 +1,6 @@
 <?php
 
-namespace Type;
+namespace App\Tests\Type;
 
 use App\Entity\Tag;
 use App\Entity\User;

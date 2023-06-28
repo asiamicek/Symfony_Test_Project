@@ -2,18 +2,17 @@
 /**
  * Post fixtures.
  */
+
 namespace App\DataFixtures;
 
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\Category;
-use App\Entity\Comment;
 use App\Entity\User;
-use DateTimeImmutable;
-//use Doctrine\Persistence\ObjectManager;
+// use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-//use Doctrine\DBAL\Driver\IBMDB2\Exception\Factory;
+// use Doctrine\DBAL\Driver\IBMDB2\Exception\Factory;
 
 /**
  * Class PostFixtures.
@@ -37,15 +36,15 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
             return;
         }
 
-        $this->createMany(10, 'posts', function (){
+        $this->createMany(10, 'posts', function () {
             $post = new Post();
             $post->setTitle($this->faker->sentence);
             $post->setContent($this->faker->sentence);
             $post->setCreatedAt(
-                DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
+                \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
             $post->setUpdatedAt(
-                DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
+                \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
             /** @var Category $category */
             $category = $this->getRandomReference('categories');
@@ -65,7 +64,7 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
             $author = $this->getRandomReference('users');
             $post->setAuthor($author);
 
-//            $this->manager->persist($post);
+            //            $this->manager->persist($post);
             return $post;
         });
 

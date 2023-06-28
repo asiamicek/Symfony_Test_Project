@@ -7,7 +7,6 @@ namespace App\Service;
 
 use App\Entity\Post;
 use App\Entity\Tag;
-use App\Entity\User;
 use App\Repository\PostRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -40,16 +39,18 @@ class PostService implements PostServiceInterface
 
     /**
      * Constructor.
+     *
      * @param CategoryServiceInterface $categoryService Category service
      * @param TagServiceInterface      $tagService      Tag service
-     * @param PostRepository     $postRepository Post repository
-     * @param PaginatorInterface $paginator      Paginator
+     * @param PostRepository           $postRepository  Post repository
+     * @param PaginatorInterface       $paginator       Paginator
      */
-    public function __construct(PostRepository $postRepository,
-                                CategoryServiceInterface $categoryService,
-                                PaginatorInterface $paginator,
-                                TagServiceInterface $tagService,)
-    {
+    public function __construct(
+        PostRepository $postRepository,
+        CategoryServiceInterface $categoryService,
+        PaginatorInterface $paginator,
+        TagServiceInterface $tagService,
+    ) {
         $this->postRepository = $postRepository;
         $this->paginator = $paginator;
         $this->categoryService = $categoryService;
@@ -62,6 +63,7 @@ class PostService implements PostServiceInterface
      * @param array<string, int> $filters Raw filters from request
      *
      * @return array<string, object> Result array of filters
+     *
      * @throws NonUniqueResultException
      */
     public function prepareFilters(array $filters): array
@@ -84,12 +86,10 @@ class PostService implements PostServiceInterface
         return $resultFilters;
     }
 
-
     /**
      * Get paginated list.
      *
      * @param int                $page    Page number
-     *
      * @param array<string, int> $filters Filters
      *
      * @return PaginationInterface Paginated list
@@ -101,7 +101,7 @@ class PostService implements PostServiceInterface
         $filters = $this->prepareFilters($filters);
 
         return $this->paginator->paginate(
-            $this->postRepository->queryAll( $filters),
+            $this->postRepository->queryAll($filters),
             $page,
             PostRepository::PAGINATOR_ITEMS_PER_PAGE
         );
@@ -110,15 +110,17 @@ class PostService implements PostServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int                $page    Page number
      * @param array<string, int> $filters Filters array
      *
      * @return PaginationInterface<string, mixed> Paginated list
+     *
      * @throws NonUniqueResultException
      */
     public function getPaginatedList(int $page, array $filters = []): PaginationInterface
     {
         $filters = $this->prepareFilters($filters);
+
         return $this->paginator->paginate(
             $this->postRepository->queryAll($filters),
             $page,
@@ -126,14 +128,10 @@ class PostService implements PostServiceInterface
         );
     }
 
-    /**
-     * @return array
-     */
     public function getAllPosts(): array
     {
         return $this->postRepository->findAll();
     }
-
 
     /**
      * Save entity.
@@ -142,10 +140,10 @@ class PostService implements PostServiceInterface
      */
     public function save(Post $post): void
     {
-//        if (null == $post->getId()) {
-//            $post->setCreatedAt(new \DateTimeImmutable());
-//        }
-//        $post->setUpdatedAt(new \DateTimeImmutable());
+        //        if (null == $post->getId()) {
+        //            $post->setCreatedAt(new \DateTimeImmutable());
+        //        }
+        //        $post->setUpdatedAt(new \DateTimeImmutable());
 
         $this->postRepository->save($post);
     }
@@ -162,5 +160,4 @@ class PostService implements PostServiceInterface
     {
         $this->postRepository->delete($post);
     }
-
 }

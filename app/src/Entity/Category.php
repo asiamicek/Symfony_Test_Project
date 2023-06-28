@@ -5,8 +5,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Post;
 use App\Repository\CategoryRepository;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -26,8 +26,6 @@ class Category
 {
     /**
      * Primary key.
-     *
-     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,19 +34,19 @@ class Category
 
     /**
      * Title.
-     *
-     * @var string|null
      */
-    #[ORM\Column(type: 'string',length: 64)]
+    #[ORM\Column(type: 'string', length: 64)]
     private ?string $title = null;
 
     /**
      * Posts collection.
+     *
      * @ORM\Column(nullable=true)
+     *
      * @var Collection|ArrayCollection
      */
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class)]
-    #[ORM\JoinColumn(name: "id", referencedColumnName: "category_id", nullable: true)]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'category_id', nullable: true)]
     private Collection $posts;
 
     /**
@@ -74,7 +72,9 @@ class Category
     /**
      * Setter for title.
      *
-     * @param string|null $title Title
+     * @param string $title Title
+     *
+     * @return Category
      */
     public function setTitle(string $title): static
     {
@@ -83,6 +83,10 @@ class Category
         return $this;
     }
 
+    /**
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public static function checkPostsByCategoryId(int $categoryId, EntityManagerInterface $entityManager): bool
     {
         $entityManager = // Pobierz EntityManager
@@ -92,7 +96,8 @@ class Category
     }
 
     /**
-     * Getter for Posts
+     * Getter for Posts.
+     *
      * @return Collection<int, Post>
      */
     public function getPosts(): Collection
@@ -101,9 +106,10 @@ class Category
     }
 
     /**
-     * Add Post function
+     * Add Post function.
      *
-     * @param Post $post
+     * @param Post $post Post
+     *
      * @return $this
      */
     public function addComment(Post $post): static
@@ -117,9 +123,10 @@ class Category
     }
 
     /**
-     * Remove Post function
+     * Remove Post function.
      *
-     * @param Post $post
+     * @param Post $post Post
+     *
      * @return $this
      */
     public function removePost(Post $post): static

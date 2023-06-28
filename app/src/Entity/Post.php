@@ -3,17 +3,15 @@
  * Post entity.
  */
 
+
 namespace App\Entity;
 
-use App\Entity\Category;
 use App\Repository\PostRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Post.
@@ -26,8 +24,6 @@ class Post
 {
     /**
      * Primary key.
-     *
-     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,10 +32,8 @@ class Post
 
     /**
      * Title.
-     *
-     * @var string|null
      */
-    #[ORM\Column(type: 'string',length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $title = null;
 
     /**
@@ -52,19 +46,13 @@ class Post
 
     /**
      * Created at.
-     *
-     * @var DateTimeImmutable|null
-     *
      */
     #[ORM\Column(type: 'datetime_immutable')]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
-
     /**
      * Updated at.
-     *
-     * @var DateTimeImmutable|null
      *
      * @psalm-suppress PropertyNotSetInConstructor
      */
@@ -74,10 +62,8 @@ class Post
 
     /**
      * Category.
-     *
-     * @var Category|null
      */
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'posts')]
     private ?Category $category = null;
 
     /**
@@ -86,7 +72,7 @@ class Post
      * @var Collection|ArrayCollection
      */
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
-    #[ORM\JoinColumn(name: "id", referencedColumnName: "post_id", onDelete: "CASCADE")]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'post_id', onDelete: 'CASCADE')]
     private Collection $comments;
 
     /**
@@ -100,13 +86,10 @@ class Post
 
     /**
      * Author.
-     *
-     * @var User|null
      */
     #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
-
 
     /**
      * Comments constructor.
@@ -115,7 +98,6 @@ class Post
     {
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
-
     }
 
     /**
@@ -141,7 +123,9 @@ class Post
     /**
      * Setter for title.
      *
-     * @param string|null $title Title
+     * @param string $title Title
+     *
+     * @return Post
      */
     public function setTitle(string $title): static
     {
@@ -152,8 +136,6 @@ class Post
 
     /**
      * Getter for content.
-     *
-     * @return string|null
      */
     public function getContent(): ?string
     {
@@ -163,7 +145,6 @@ class Post
     /**
      * Setter for content.
      *
-     * @param string $content
      * @return $this
      */
     public function setContent(string $content): static
@@ -176,7 +157,7 @@ class Post
     /**
      * Getter for created at.
      *
-     * @return DateTimeImmutable|null Created at
+     * @return \DateTimeImmutable|null Created at
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -186,7 +167,9 @@ class Post
     /**
      * Setter for created at.
      *
-     * @param DateTimeImmutable|null $createdAt Created at
+     * @param \DateTimeImmutable $createdAt Created at
+     *
+     * @return Post
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -198,7 +181,7 @@ class Post
     /**
      * Getter for updated at.
      *
-     * @return DateTimeImmutable|null Updated at
+     * @return \DateTimeImmutable|null Updated at
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -208,7 +191,9 @@ class Post
     /**
      * Setter for updated at.
      *
-     * @param DateTimeImmutable|null $updatedAt Updated at
+     * @param \DateTimeImmutable $updatedAt Updated at
+     *
+     * @return Post
      */
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
@@ -219,8 +204,6 @@ class Post
 
     /**
      * Getter for category.
-     *
-     * @return Category|null
      */
     public function getCategory(): ?Category
     {
@@ -230,7 +213,8 @@ class Post
     /**
      * Setter for category.
      *
-     * @param Category|null $category
+     * @param ?Category $category
+     *
      * @return $this
      */
     public function setCategory(?Category $category): static
@@ -241,7 +225,8 @@ class Post
     }
 
     /**
-     * Getter for Comments
+     * Getter for Comments.
+     *
      * @return Collection<int, Comment>
      */
     public function getComments(): Collection
@@ -250,9 +235,8 @@ class Post
     }
 
     /**
-     * Add Comment function
+     * Add Comment function.
      *
-     * @param Comment $comment
      * @return $this
      */
     public function addComment(Comment $comment): static
@@ -266,9 +250,8 @@ class Post
     }
 
     /**
-     * Remove Comment function
+     * Remove Comment function.
      *
-     * @param Comment $comment
      * @return $this
      */
     public function removeComment(Comment $comment): static
@@ -279,6 +262,28 @@ class Post
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Getter for Author.
+     * @return User|null
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * Setter for Author.
+     *
+     * @param User|null $author Author
+     * @return $this
+     */
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }
@@ -321,15 +326,5 @@ class Post
         return $this;
     }
 
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
 
-    public function setAuthor(?User $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 }

@@ -22,8 +22,6 @@ interface CommentServiceInterface
      */
     public function getPaginatedList(int $page): PaginationInterface;
 
-
-
     /**
      * Save entity.
      *

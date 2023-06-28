@@ -8,7 +8,6 @@ namespace App\DataFixtures;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\User;
-use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
@@ -34,7 +33,7 @@ class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureIn
             $comment = new Comment();
             $comment->setContent($this->faker->sentence);
             $comment->setCreatedAt(
-                DateTimeImmutable::createFromMutable(
+                \DateTimeImmutable::createFromMutable(
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );

@@ -1,6 +1,6 @@
 <?php
 
-namespace Enum;
+namespace App\Tests\Entity\Enum;
 
 use App\Entity\Enum\UserRole;
 use App\Tests\BaseTest;

@@ -18,8 +18,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class TagController.
- * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
  *
+ * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
  */
 #[Route('/tag')]
 class TagController extends AbstractController
@@ -73,66 +73,66 @@ class TagController extends AbstractController
         );
     }
 
-    /**
-     * Show action.
-     *
-     * @param Tag $tag Tag entity
-     *
-     * @return Response HTTP response
-     */
-    #[Route(
-        '/{id}',
-        name: 'tag_show',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: 'GET',
-    )]
-    #[IsGranted(
-        'VIEW',
-        subject: 'tag',
-    )]
-    public function show(Tag $tag): Response
-    {
-        return $this->render(
-            'tag/show.html.twig',
-            ['tag' => $tag]
-        );
-    }
+    //    /**
+    //     * Show action.
+    //     *
+    //     * @param Tag $tag Tag entity
+    //     *
+    //     * @return Response HTTP response
+    //     */
+    //    #[Route(
+    //        '/{id}',
+    //        name: 'tag_show',
+    //        requirements: ['id' => '[1-9]\d*'],
+    //        methods: 'GET',
+    //    )]
+    //    #[IsGranted(
+    //        'VIEW',
+    //        subject: 'tag',
+    //    )]
+    //    public function show(Tag $tag): Response
+    //    {
+    //        return $this->render(
+    //            'tag/show.html.twig',
+    //            ['tag' => $tag]
+    //        );
+    //    }
 
-    /**
-     * Create action.
-     *
-     * @param Request $request HTTP request
-     *
-     * @return Response HTTP response
-     */
-    #[Route(
-        '/create',
-        name: 'tag_create',
-        methods: 'GET|POST',
-    )]
-    public function create(Request $request): Response
-    {
-        $tag = new Tag();
-//        $user = $this->getUser();
-//        $tag->setAuthor($user);
-        $form = $this->createForm(TagType::class, $tag);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->tagService->save($tag);
-            $this->addFlash(
-                'success',
-                $this->translator->trans('message_created_successfully')
-            );
-
-            return $this->redirectToRoute('tag_index');
-        }
-
-        return $this->render(
-            'tag/create.html.twig',
-            ['form' => $form->createView()]
-        );
-    }
+    //    /**
+    //     * Create action.
+    //     *
+    //     * @param Request $request HTTP request
+    //     *
+    //     * @return Response HTTP response
+    //     */
+    //    #[Route(
+    //        '/create',
+    //        name: 'tag_create',
+    //        methods: 'GET|POST',
+    //    )]
+    //    public function create(Request $request): Response
+    //    {
+    //        $tag = new Tag();
+    // //        $user = $this->getUser();
+    // //        $tag->setAuthor($user);
+    //        $form = $this->createForm(TagType::class, $tag);
+    //        $form->handleRequest($request);
+    //
+    //        if ($form->isSubmitted() && $form->isValid()) {
+    //            $this->tagService->save($tag);
+    //            $this->addFlash(
+    //                'success',
+    //                $this->translator->trans('message_created_successfully')
+    //            );
+    //
+    //            return $this->redirectToRoute('tag_index');
+    //        }
+    //
+    //        return $this->render(
+    //            'tag/create.html.twig',
+    //            ['form' => $form->createView()]
+    //        );
+    //    }
 
     /**
      * Edit action.

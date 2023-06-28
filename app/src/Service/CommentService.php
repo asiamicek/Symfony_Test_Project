@@ -29,8 +29,8 @@ class CommentService implements CommentServiceInterface
     /**
      * Constructor.
      *
-     * @param CommentRepository     $commentRepository Comment repository
-     * @param PaginatorInterface $paginator      Paginator
+     * @param CommentRepository  $commentRepository Comment repository
+     * @param PaginatorInterface $paginator         Paginator
      */
     public function __construct(CommentRepository $commentRepository, PaginatorInterface $paginator)
     {
@@ -66,8 +66,6 @@ class CommentService implements CommentServiceInterface
         return $this->commentRepository->queryByPost($post)->getQuery()->getResult();
     }// end findByPost()
 
-
-
     /**
      * Save entity.
      *
@@ -75,10 +73,10 @@ class CommentService implements CommentServiceInterface
      */
     public function save(Comment $comment): void
     {
-//        if (null == $comment->getId()) {
-//            $comment->setCreatedAt(new \DateTimeImmutable());
-//        }
-//        $comment->setUpdatedAt(new \DateTimeImmutable());
+        //        if (null == $comment->getId()) {
+        //            $comment->setCreatedAt(new \DateTimeImmutable());
+        //        }
+        //        $comment->setUpdatedAt(new \DateTimeImmutable());
 
         $this->commentRepository->save($comment);
     }
@@ -95,5 +93,4 @@ class CommentService implements CommentServiceInterface
     {
         $this->commentRepository->delete($comment);
     }
-
 }

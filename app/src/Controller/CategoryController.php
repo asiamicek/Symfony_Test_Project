@@ -8,8 +8,6 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Service\CategoryServiceInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,8 +28,6 @@ class CategoryController extends AbstractController
 
     /**
      * Translator.
-     *
-     * @var TranslatorInterface
      */
     private TranslatorInterface $translator;
 
@@ -39,8 +35,7 @@ class CategoryController extends AbstractController
      * Constructor.
      *
      * @param CategoryServiceInterface $categoryService Category service
-     * @param TranslatorInterface      $translator  Translator
-     *
+     * @param TranslatorInterface      $translator      Translator
      */
     public function __construct(CategoryServiceInterface $categoryService, TranslatorInterface $translator)
     {
@@ -51,7 +46,7 @@ class CategoryController extends AbstractController
     /**
      * Index action.
      *
-     * @param Request            $request        HTTP Request
+     * @param Request $request HTTP Request
      *
      * @return Response HTTP response
      */
@@ -102,7 +97,8 @@ class CategoryController extends AbstractController
     public function create(Request $request): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('warning', $this->translator->trans('message_record_not_found'));
+            $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
+
             return $this->redirectToRoute('category_index');
         }
 
@@ -115,7 +111,7 @@ class CategoryController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.created_successfully')
+                $this->translator->trans('message_created_successfully')
             );
 
             return $this->redirectToRoute('category_index');
@@ -139,7 +135,8 @@ class CategoryController extends AbstractController
     public function edit(Request $request, Category $category): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('warning', $this->translator->trans('message_record_not_found'));
+            $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
+
             return $this->redirectToRoute('category_index');
         }
 
@@ -158,7 +155,7 @@ class CategoryController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.created_successfully')
+                $this->translator->trans('message_created_successfully')
             );
 
             return $this->redirectToRoute('category_index');
@@ -173,7 +170,6 @@ class CategoryController extends AbstractController
         );
     }
 
-
     /**
      * Delete action.
      *
@@ -183,18 +179,18 @@ class CategoryController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
-    public function delete(Request $request, Category $category, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Category $category): Response
     {
-
-//        $id = $category->getId();
-//
-//        if ($category->checkPostsByCategoryId($id, $entityManager)) {
-//            $this->addFlash('warning', 'message_category_contains_notes');
-//
-//            return $this->redirectToRoute('category_index');
-//        }
+        //        $id = $category->getId();
+        //
+        //        if ($category->checkPostsByCategoryId($id, $entityManager)) {
+        //            $this->addFlash('warning', 'message_category_contains_notes');
+        //
+        //            return $this->redirectToRoute('category_index');
+        //        }
         if (!$this->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('warning', $this->translator->trans('message_record_not_found'));
+            $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
+
             return $this->redirectToRoute('category_index');
         }
 
@@ -229,6 +225,4 @@ class CategoryController extends AbstractController
             ]
         );
     }
-
-
 }

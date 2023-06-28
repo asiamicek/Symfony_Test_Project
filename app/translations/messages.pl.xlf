@@ -35,6 +35,14 @@
                 <source>action.edit</source>
                 <target>Edytuj</target>
             </trans-unit>
+            <trans-unit id="action.edit_data">
+                <source>action.edit_data</source>
+                <target>Edytuj dane</target>
+            </trans-unit>
+            <trans-unit id="action.edit_password">
+                <source>action.edit_password</source>
+                <target>Zmień hasło</target>
+            </trans-unit>
             <trans-unit id="action_login">
                 <source>action_login</source>
                 <target>Zaloguj</target>
@@ -171,6 +179,10 @@
                 <source>message_created_successfully</source>
                 <target>Utworzono pomyślnie</target>
             </trans-unit>
+            <trans-unit id="message_edited_successfully">
+                <source>message_edited_successfully</source>
+                <target>Zedytowano pomyślnie</target>
+            </trans-unit>
             <trans-unit id="message_deleted_successfully">
                 <source>message_deleted_successfully</source>
                 <target>Usunięto pomyślnie</target>
@@ -230,6 +242,18 @@
             <trans-unit id="action.create_comment">
                 <source>action.create_comment</source>
                 <target>Dodaj komentarz</target>
+            </trans-unit>
+            <trans-unit id="action.create_comment_no">
+                <source>action.create_comment_no</source>
+                <target>Zaloguj się, aby móc skomentować post</target>
+            </trans-unit>
+            <trans-unit id="title_comment_delete">
+                <source>title_comment_delete</source>
+                <target>Usuwanie komentarza</target>
+            </trans-unit>
+            <trans-unit id="title_comment_delete_message">
+                <source>title_comment_delete_message</source>
+                <target>Czy na pewno chcesz usunąć wskazany komentarz?</target>
             </trans-unit>
             <trans-unit id="label_comments">
                 <source>label_comments</source>
@@ -410,6 +434,10 @@
             <trans-unit id="message_record_not_found">
                 <source>message_record_not_found</source>
                 <target>Nie znaleziono rekordu</target>
+            </trans-unit>
+            <trans-unit id="message_action_impossible">
+                <source>message_action_impossible</source>
+                <target>Brak możliwości wykonania operacji</target>
             </trans-unit>
             <trans-unit id="hello_login">
                 <source>hello_login</source>

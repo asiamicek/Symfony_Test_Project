@@ -56,8 +56,8 @@ class UserType extends AbstractType
             [
                 'type' => PasswordType::class,
                 'required' => true,
-                'first_options' => array('label' => 'label_password'),
-                'second_options' => array('label' => 'label_password_repeat'),
+                'first_options' => ['label' => 'label_password'],
+                'second_options' => ['label' => 'label_password_repeat'],
             ]
         );
     }
