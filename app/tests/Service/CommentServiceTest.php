@@ -113,10 +113,12 @@ class CommentServiceTest extends BaseTest
 
         // Tworzenie testowego posta
         $user = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value], 'post_admin_service3@example.com', 'padmins3');
+        $category = $this->createCategory('kategoria_szukanie_postów');
         $post = new Post();
         $post->setTitle('Test Post');
         $post->setContent('Test content');
         $post->setAuthor($user);
+        $post->setCategory($category);
         $this->postService->save($post);
 
         // Tworzenie testowych komentarzy przypisanych do posta

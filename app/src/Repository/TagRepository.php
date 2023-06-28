@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag Repository.
+ */
 
 namespace App\Repository;
 
@@ -10,6 +13,8 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 
 /**
+ * Class Tag Repository.
+ *
  * @extends ServiceEntityRepository<Tag>
  *
  * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
@@ -32,10 +37,50 @@ class TagRepository extends ServiceEntityRepository
 
     /**
      * Constructor.
+     *
+     * @param ManagerRegistry $registry Manager
      */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tag::class);
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Tag $tag Tag entity
+     */
+    public function save(Tag $tag): void
+    {
+        $this->_em->persist($tag);
+        $this->_em->flush();
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Tag $tag Tag entity
+     */
+    public function delete(Tag $tag): void
+    {
+        $this->_em->remove($tag);
+        $this->_em->flush();
+    }
+
+    /**
+     * @param $id
+     *
+     * @return Tag|null tag
+     *
+     * @throws NonUniqueResultException
+     */
+    public function findOneById($id): ?Tag
+    {
+        return $this->createQueryBuilder('tag')
+            ->andWhere('tag.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     /**
@@ -62,27 +107,7 @@ class TagRepository extends ServiceEntityRepository
         return $queryBuilder ?? $this->createQueryBuilder('tag');
     }
 
-    /**
-     * Save entity.
-     *
-     * @param Tag $tag Tag entity
-     */
-    public function save(Tag $tag): void
-    {
-        $this->_em->persist($tag);
-        $this->_em->flush();
-    }
 
-    /**
-     * Delete entity.
-     *
-     * @param Tag $tag Tag entity
-     */
-    public function delete(Tag $tag): void
-    {
-        $this->_em->remove($tag);
-        $this->_em->flush();
-    }
 
     //    /**
     //     * Query tags by author.
@@ -102,17 +127,7 @@ class TagRepository extends ServiceEntityRepository
     //        return $queryBuilder;
     //    }
 
-    /**
-     * @throws NonUniqueResultException
-     */
-    public function findOneById($id): ?Tag
-    {
-        return $this->createQueryBuilder('tag')
-            ->andWhere('tag.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
+
 
     //    /**
     //     * @return Tag[] Returns an array of Tag objects

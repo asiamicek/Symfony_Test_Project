@@ -84,7 +84,8 @@ class PostController extends AbstractController
     /**
      * Show action.
      *
-     * @param Post $post Post entity
+     * @param Post    $post    Post entity
+     * @param Request $request Request
      *
      * @return Response HTTP response
      */

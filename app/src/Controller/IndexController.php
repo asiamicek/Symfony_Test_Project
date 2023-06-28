@@ -25,6 +25,8 @@ class IndexController extends AbstractController
 
     /**
      * Constructor.
+     *
+     * @param PostService $postService Post service
      */
     public function __construct(PostService $postService)
     {

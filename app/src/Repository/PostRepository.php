@@ -1,4 +1,7 @@
 <?php
+/**
+ * Post Repository.
+ */
 
 namespace App\Repository;
 
@@ -11,6 +14,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 
 /**
+ * Class Post Repository.
+ *
  * @extends ServiceEntityRepository<Post>
  *
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
@@ -30,6 +35,53 @@ class PostRepository extends ServiceEntityRepository
      * @constant int
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 5;
+
+    /**
+     * Constructor.
+     *
+     * @param ManagerRegistry $registry Manager
+     */
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Post::class);
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Post $post Post entity
+     */
+    public function save(Post $post): void
+    {
+        $this->_em->persist($post);
+        $this->_em->flush();
+    }
+
+    /**
+     * Remove entity.
+     *
+     * @param Post $entity post
+     * @param bool $flush  bool
+     */
+    public function remove(Post $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Post $post Post entity
+     */
+    public function delete(Post $post): void
+    {
+        $this->_em->remove($post);
+        $this->_em->flush();
+    }
 
     /**
      * Query all records.
@@ -133,47 +185,7 @@ class PostRepository extends ServiceEntityRepository
     //        return $resultFilters;
     //    }
 
-    /**
-     * Constructor.
-     */
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Post::class);
-    }
 
-    /**
-     * Save entity.
-     *
-     * @param Post $post Post entity
-     */
-    public function save(Post $post): void
-    {
-        $this->_em->persist($post);
-        $this->_em->flush();
-    }
-
-    /**
-     * Remove entity.
-     */
-    public function remove(Post $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * Delete entity.
-     *
-     * @param Post $post Post entity
-     */
-    public function delete(Post $post): void
-    {
-        $this->_em->remove($post);
-        $this->_em->flush();
-    }
 
     //    /**
     //     * @return Post[] Returns an array of Post objects

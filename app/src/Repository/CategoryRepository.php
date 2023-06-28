@@ -1,4 +1,7 @@
 <?php
+/**
+ * Category repository.
+ */
 
 namespace App\Repository;
 
@@ -8,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 
 /**
+ * Class Category repository.
+ *
  * @extends ServiceEntityRepository<Category>
  *
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -30,10 +35,34 @@ class CategoryRepository extends ServiceEntityRepository
 
     /**
      * Constructor.
+     *
+     * @param ManagerRegistry $registry Manager
      */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Category::class);
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Category $category category
+     */
+    public function save(Category $category): void
+    {
+        $this->_em->persist($category);
+        $this->_em->flush();
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Category $category Category entity
+     */
+    public function delete(Category $category): void
+    {
+        $this->_em->remove($category);
+        $this->_em->flush();
     }
 
     /**
@@ -60,25 +89,7 @@ class CategoryRepository extends ServiceEntityRepository
         return $queryBuilder ?? $this->createQueryBuilder('category');
     }
 
-    /**
-     * Save entity.
-     */
-    public function save(Category $category): void
-    {
-        $this->_em->persist($category);
-        $this->_em->flush();
-    }
 
-    /**
-     * Delete entity.
-     *
-     * @param Category $category Category entity
-     */
-    public function delete(Category $category): void
-    {
-        $this->_em->remove($category);
-        $this->_em->flush();
-    }
 
     //    /**
     //     * @return Category[] Returns an array of Category objects

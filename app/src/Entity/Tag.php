@@ -8,6 +8,7 @@ namespace App\Entity;
 
 use App\Repository\TagRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Tag.
@@ -28,6 +29,9 @@ class Tag
      * Title.
      */
     #[ORM\Column(length: 64)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 64)]
     private ?string $title = null;
 
     //    /**
@@ -41,6 +45,8 @@ class Tag
 
     /**
      * Getter for id.
+     *
+     * @return int|null id
      */
     public function getId(): ?int
     {
@@ -49,6 +55,8 @@ class Tag
 
     /**
      * Getter for Title.
+     *
+     * @return string|null title
      */
     public function getTitle(): ?string
     {
@@ -57,6 +65,8 @@ class Tag
 
     /**
      * Setter for Title.
+     *
+     * @param string $title title
      *
      * @return $this
      */

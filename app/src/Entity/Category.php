@@ -5,13 +5,15 @@
 
 namespace App\Entity;
 
-use App\Entity\Post;
+use DateTimeImmutable;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Category.
@@ -26,6 +28,8 @@ class Category
 {
     /**
      * Primary key.
+     *
+     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,8 +38,13 @@ class Category
 
     /**
      * Title.
+     *
+     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 64)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $title = null;
 
     /**
@@ -45,7 +54,7 @@ class Category
      *
      * @var Collection|ArrayCollection
      */
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(name: 'id', referencedColumnName: 'category_id', nullable: true)]
     private Collection $posts;
 
@@ -84,8 +93,10 @@ class Category
     }
 
     /**
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @param int                    $categoryId    category id
+     * @param EntityManagerInterface $entityManager EntityManager
+     *
+     * @return bool bool
      */
     public static function checkPostsByCategoryId(int $categoryId, EntityManagerInterface $entityManager): bool
     {

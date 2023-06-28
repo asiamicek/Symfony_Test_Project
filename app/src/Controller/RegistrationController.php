@@ -1,4 +1,7 @@
 <?php
+/**
+ * Registration Controller.
+ */
 
 namespace App\Controller;
 
@@ -15,7 +18,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
- * Registration Controller.
+ * Class Registration Controller.
  */
 class RegistrationController extends AbstractController
 {
@@ -26,6 +29,8 @@ class RegistrationController extends AbstractController
 
     /**
      * Constructor.
+     *
+     * @param UserService $userService User Service
      */
     public function __construct(UserService $userService)
     {

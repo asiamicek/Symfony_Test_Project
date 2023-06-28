@@ -40,17 +40,13 @@ class PostService implements PostServiceInterface
     /**
      * Constructor.
      *
-     * @param CategoryServiceInterface $categoryService Category service
-     * @param TagServiceInterface      $tagService      Tag service
      * @param PostRepository           $postRepository  Post repository
+     * @param CategoryServiceInterface $categoryService Category service
      * @param PaginatorInterface       $paginator       Paginator
+     * @param TagServiceInterface      $tagService      Tag service
      */
-    public function __construct(
-        PostRepository $postRepository,
-        CategoryServiceInterface $categoryService,
-        PaginatorInterface $paginator,
-        TagServiceInterface $tagService,
-    ) {
+    public function __construct(PostRepository $postRepository, CategoryServiceInterface $categoryService, PaginatorInterface $paginator, TagServiceInterface $tagService)
+    {
         $this->postRepository = $postRepository;
         $this->paginator = $paginator;
         $this->categoryService = $categoryService;
@@ -128,6 +124,9 @@ class PostService implements PostServiceInterface
         );
     }
 
+    /**
+     * @return array posts
+     */
     public function getAllPosts(): array
     {
         return $this->postRepository->findAll();

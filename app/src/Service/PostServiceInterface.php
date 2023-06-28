@@ -24,15 +24,16 @@ interface PostServiceInterface
     public function createPaginatedList(int $page): PaginationInterface;
 
     /**
-     * Get paginated list.
+     * @param int   $page    page
+     * @param array $filters filters
      *
-     * @param int                $page    Page number
-     * @param array<string, int> $filters Filters array
-     *
-     * @return PaginationInterface<string, mixed> Paginated list
+     * @return PaginationInterface paginator
      */
     public function getPaginatedList(int $page, array $filters = []): PaginationInterface;
 
+    /**
+     * @return array posts
+     */
     public function getAllPosts(): array;
     //    /**
     //     * Find by title.

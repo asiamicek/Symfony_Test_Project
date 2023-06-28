@@ -40,6 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Nickname.
      */
     #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     #[ORM\Column(type: 'string', length: 64, unique: true)]
     private $nickname;
 
@@ -89,6 +90,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Setter for nickname.
+     *
+     * @param string $nickname nickname
      */
     public function setNickname(string $nickname): void
     {
@@ -97,6 +100,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Getter for nickname.
+     *
+     * @return string|null nickname
      */
     public function getNickname(): ?string
     {
@@ -176,6 +181,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @return string|null string
      *
      * @see UserInterface
      */

@@ -72,6 +72,8 @@ class CommentRepository extends ServiceEntityRepository
 
     /**
      * Save entity.
+     *
+     * @param Comment $comment comment
      */
     public function save(Comment $comment): void
     {
@@ -81,6 +83,8 @@ class CommentRepository extends ServiceEntityRepository
 
     /**
      * Delete entity.
+     *
+     * @param Comment $comment comment
      */
     public function delete(Comment $comment): void
     {

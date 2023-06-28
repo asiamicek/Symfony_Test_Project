@@ -3,15 +3,16 @@
  * Post entity.
  */
 
-
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Post.
@@ -24,6 +25,8 @@ class Post
 {
     /**
      * Primary key.
+     *
+     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,8 +35,13 @@ class Post
 
     /**
      * Title.
+     *
+     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 100)]
     private ?string $title = null;
 
     /**
@@ -42,12 +50,15 @@ class Post
      * @var Types::TEXT|null
      */
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3)]
     private ?string $content = null;
 
     /**
      * Created at.
      */
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\Type(DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -57,6 +68,7 @@ class Post
      * @psalm-suppress PropertyNotSetInConstructor
      */
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\Type(DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
@@ -64,14 +76,15 @@ class Post
      * Category.
      */
     #[ORM\ManyToOne(inversedBy: 'posts')]
-    private ?Category $category = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category;
 
     /**
      * Comments collection.
      *
      * @var Collection|ArrayCollection
      */
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(name: 'id', referencedColumnName: 'post_id', onDelete: 'CASCADE')]
     private Collection $comments;
 
@@ -136,6 +149,8 @@ class Post
 
     /**
      * Getter for content.
+     *
+     * @return string|null content
      */
     public function getContent(): ?string
     {
@@ -145,7 +160,9 @@ class Post
     /**
      * Setter for content.
      *
-     * @return $this
+     * @param string $content content
+     *
+     * @return $this this
      */
     public function setContent(string $content): static
     {
@@ -204,6 +221,8 @@ class Post
 
     /**
      * Getter for category.
+     *
+     * @return Category|null category
      */
     public function getCategory(): ?Category
     {
@@ -227,7 +246,7 @@ class Post
     /**
      * Getter for Comments.
      *
-     * @return Collection<int, Comment>
+     * @return Collection<int, Comment> comments
      */
     public function getComments(): Collection
     {
@@ -237,7 +256,9 @@ class Post
     /**
      * Add Comment function.
      *
-     * @return $this
+     * @param Comment $comment comment
+     *
+     * @return $this this
      */
     public function addComment(Comment $comment): static
     {
@@ -251,6 +272,8 @@ class Post
 
     /**
      * Remove Comment function.
+     *
+     * @param Comment $comment comment
      *
      * @return $this
      */
@@ -268,7 +291,7 @@ class Post
 
     /**
      * Getter for Author.
-     * @return User|null
+     * @return User|null author
      */
     public function getAuthor(): ?User
     {
@@ -279,6 +302,7 @@ class Post
      * Setter for Author.
      *
      * @param User|null $author Author
+     *
      * @return $this
      */
     public function setAuthor(?User $author): static
@@ -298,14 +322,10 @@ class Post
         return $this->tags;
     }
 
-
-
     /**
      * Add Tag.
      *
      * @param Tag $tag Tag entity
-     *
-     * @return void
      */
     public function addTag(Tag $tag): void
     {
@@ -318,6 +338,8 @@ class Post
      * Remove tag.
      *
      * @param Tag $tag Tag entity
+     *
+     * @return Post post
      */
     public function removeTag(Tag $tag): static
     {
@@ -325,6 +347,4 @@ class Post
 
         return $this;
     }
-
-
 }
