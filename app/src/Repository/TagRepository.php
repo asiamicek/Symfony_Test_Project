@@ -6,7 +6,6 @@
 namespace App\Repository;
 
 use App\Entity\Tag;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
@@ -68,13 +67,14 @@ class TagRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $id
+     *
+     * @param int $id id
      *
      * @return Tag|null tag
      *
      * @throws NonUniqueResultException
      */
-    public function findOneById($id): ?Tag
+    public function findOneById(int $id): ?Tag
     {
         return $this->createQueryBuilder('tag')
             ->andWhere('tag.id = :id')
@@ -106,51 +106,4 @@ class TagRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('tag');
     }
-
-
-
-    //    /**
-    //     * Query tags by author.
-    //     *
-    //     * @param \App\Entity\User $user    User entity
-    //     *
-    //     *
-    //     * @return \Doctrine\ORM\QueryBuilder Query builder
-    //     */
-    //    public function queryByAuthor(User $user): QueryBuilder
-    //    {
-    //        $queryBuilder = $this->queryAll();
-    //
-    //        $queryBuilder->andWhere('tag.author = :author')
-    //            ->setParameter('author', $user);
-    //
-    //        return $queryBuilder;
-    //    }
-
-
-
-    //    /**
-    //     * @return Tag[] Returns an array of Tag objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Tag
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

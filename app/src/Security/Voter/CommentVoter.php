@@ -102,19 +102,6 @@ class CommentVoter extends Voter
         return false;
     }
 
-    //    /**
-    //     * Checks if user can edit comment.
-    //     *
-    //     * @param Comment $comment Comment entity
-    //     * @param User $user User
-    //     *
-    //     * @return bool Result
-    //     */
-    //    private function canEdit(Comment $comment, User $user): bool
-    //    {
-    //        return $comment->getAuthor() === $user;
-    //    }
-
     /**
      * Checks if user can view comment.
      *

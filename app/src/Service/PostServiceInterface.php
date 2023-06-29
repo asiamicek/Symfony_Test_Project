@@ -6,7 +6,6 @@
 namespace App\Service;
 
 use App\Entity\Post;
-use App\Entity\Tag;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -35,14 +34,6 @@ interface PostServiceInterface
      * @return array posts
      */
     public function getAllPosts(): array;
-    //    /**
-    //     * Find by title.
-    //     *
-    //     * @param string $title Tag title
-    //     *
-    //     * @return Tag|null Tag entity
-    //     */
-    //    public function findOneByTitle(string $title): ?Tag;
 
     /**
      * Save entity.

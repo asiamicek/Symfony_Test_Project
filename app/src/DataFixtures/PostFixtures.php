@@ -30,8 +30,6 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
      */
     public function loadData(): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
         if (null === $this->manager || null === $this->faker) {
             return;
         }

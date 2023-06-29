@@ -42,10 +42,6 @@ class PostServiceTest extends BaseTest
         $this->categoryService = $this->createMock(CategoryService::class);
         $this->tagService = $this->createMock(TagService::class);
 
-
-//        foreach ($this->repository->findAll() as $object) {
-//            $this->repository->delete($object, true);
-//        }
     }
 
     /**
@@ -106,14 +102,7 @@ class PostServiceTest extends BaseTest
 
         $postRepository->save($postToDelete);
 
-//        // Usuń powiązane komentarze
-//        $newcomment = $this->createComment($postToDelete, $user);
-//        $commentRepository->save($newcomment);
-//
-//        $comments = $postToDelete->getComments();
-//        foreach ($comments as $comment) {
-//            $postToDelete->removeComment($comment);
-//        }
+
         $comments = $commentRepository->findBy(['post' => $postToDelete]);
 
         foreach ($comments as $comment) {
@@ -128,40 +117,9 @@ class PostServiceTest extends BaseTest
 
         $this->assertEquals(count($before), count($after) + 0);
 
-//
-//        $connection->executeQuery('SET foreign_key_checks = 1');
+
     }
 
-
-//    /**
-//     * @throws NonUniqueResultException
-//     */
-//    public function testPrepareFilters(): void
-//    {
-//
-//        $user = $this->createUser([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value], 'post_ser_filtre_admin@example.com', 'psfa');
-//        $category = $this->createCategory('categorypreparetest');
-//        $filters['category_id'] = $category->getId();
-//        $tag = new Tag();
-////        $tag -> setAuthor($user);
-//        $tag->setTitle('newtag');
-//        $filters['tags_id'] = $tag->getId();
-//
-//        $this->categoryService->expects($this->once())
-//            ->method('findOneById')
-//            ->with($filters['category_id'])
-//            ->willReturn($category);
-//
-//        $this->tagService->expects($this->once())
-//            ->method('findOneById')
-//            ->with($filters['tags_id'])
-//            ->willReturn($tag);
-//
-//        $result = $this->postService->prepareFilters($filters);
-//
-//        $this->assertSame($category, $result['category']);
-//        $this->assertSame($tag, $result['tag']);
-//    }
 
 
 

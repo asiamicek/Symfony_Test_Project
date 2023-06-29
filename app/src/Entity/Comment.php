@@ -39,7 +39,7 @@ class Comment
      * Created at.
      */
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\Type(DateTimeImmutable::class)]
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -157,6 +157,7 @@ class Comment
 
     /**
      * Getter for Author.
+     *
      * @return User|null author
      */
     public function getAuthor(): ?User

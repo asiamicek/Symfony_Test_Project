@@ -81,12 +81,10 @@ class TagServiceTest extends BaseTest
     public function testSave(): void
     {
         // given
-//        $user = $this->createUser([UserRole::ROLE_USER->value], 'tag_user1@example.com', 'tu1');
-//        $this->httpClient->loginUser($user);
 
         $expectedTag = new Tag();
         $expectedTag->setTitle('Test1');
-//        $expectedTag->setAuthor($user);
+
 
         // when
         $this->tagService->save($expectedTag);
@@ -114,12 +112,9 @@ class TagServiceTest extends BaseTest
         // given
 
 
-//        $user = $this->createUser([UserRole::ROLE_USER->value], 'tag_user2@example.com', 'tu2');
-//        $this->httpClient->loginUser($user);
-
         $tagToDelete = new Tag();
         $tagToDelete->setTitle('Test2');
-//        $tagToDelete->setAuthor($user);
+
 
         $this->entityManager->persist($tagToDelete);
         $this->entityManager->flush();
@@ -146,12 +141,10 @@ class TagServiceTest extends BaseTest
     public function testFindById(): void
     {
         // given
-//        $user = $this->createUser([UserRole::ROLE_USER->value], 'tag_user3@example.com', 'tu3');
-//        $this->httpClient->loginUser($user);
 
         $expectedTag = new Tag();
         $expectedTag->setTitle('Test3');
-//        $expectedTag->setAuthor($user);
+
 
         $this->entityManager->persist($expectedTag);
         $this->entityManager->flush();
@@ -170,12 +163,10 @@ class TagServiceTest extends BaseTest
     public function testFindOneByTitle(): void
     {
         // given
-//        $user = $this->createUser([UserRole::ROLE_USER->value], 'tag_user4@example.com', 'tu4');
-//        $this->httpClient->loginUser($user);
 
         $expectedTag = new Tag();
         $expectedTag->setTitle('Test4');
-//        $expectedTag->setAuthor($user);
+
 
         $this->entityManager->persist($expectedTag);
         $this->entityManager->flush();
@@ -188,8 +179,4 @@ class TagServiceTest extends BaseTest
         $this->assertEquals($expectedTag, $resultTag);
     }
 
-
-
-
-    // other tests for paginated list
 }

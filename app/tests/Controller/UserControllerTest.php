@@ -33,10 +33,6 @@ class UserControllerTest extends BaseTest
      */
     private const TEST_ROUTE = '/user';
 
-//    /**
-//     * Test client.
-//     */
-//    private KernelBrowser $httpClient;
 
     /**
      * Set up tests.
@@ -46,15 +42,6 @@ class UserControllerTest extends BaseTest
         $this->httpClient = static::createClient();
     }
 
-//    /**
-//     * Test index action as anonymous user.
-//     */
-//    public function testIndexActionAsAnonymousUser(): void
-//    {
-//        $this->httpClient->request('GET', '/user/');
-//
-//        $this->assertResponseRedirects('index');
-//    }
 
     /**
      * Test edit password.

@@ -6,7 +6,6 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Entity\Enum\UserRole;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\Type\CommentType;
@@ -93,15 +92,6 @@ class PostController extends AbstractController
     #[Route('/{id}', name: 'post_show', methods: ['GET', 'POST'], requirements: ['id' => "[1-9]\d*"])]
     public function show(Post $post, Request $request): Response
     {
-        //        if ($post->getAuthor() !== $this->getUser()) {
-        //            $this->addFlash(
-        //                'warning',
-        //                $this->translator->trans('message.record_not_found')
-        //            );
-        //
-        //            return $this->redirectToRoute('post_index');
-        //        }
-
         /** @var User $user */
         $user = $this->getUser();
         $comment = new Comment();

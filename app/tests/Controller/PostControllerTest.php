@@ -17,7 +17,6 @@ class PostControllerTest extends BaseTest
      */
     public const TEST_ROUTE = '/post';
 
-//    private PostRepository $repository;
 
     /**
      * Set up tests.
@@ -95,13 +94,12 @@ class PostControllerTest extends BaseTest
         $this->assertNotEmpty($formData['post[content]']);
         $this->assertNotEmpty($formData['post[category]']);
 
-// Prześlij formularz tylko jeśli wszystkie pola mają wartości
 
         $this->httpClient->submitForm('Zapisz', $formData);
-//        $resultStatusCode = $this->httpClient->getResponse()->getStatusCode();
+
 
         $this->assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
-//        $this->assertEquals(302, $resultStatusCode);
+
     }
 
     /**

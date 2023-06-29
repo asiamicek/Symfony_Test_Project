@@ -5,7 +5,6 @@
 
 namespace App\Entity;
 
-use DateTimeImmutable;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Category.
@@ -28,8 +26,6 @@ class Category
 {
     /**
      * Primary key.
-     *
-     * @var int|null
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,8 +34,6 @@ class Category
 
     /**
      * Title.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 64)]
     #[Assert\Type('string')]
@@ -100,7 +94,6 @@ class Category
      */
     public static function checkPostsByCategoryId(int $categoryId, EntityManagerInterface $entityManager): bool
     {
-        $entityManager = // Pobierz EntityManager
         $repository = $entityManager->getRepository(Category::class);
 
         return $repository->checkPostsByCategoryId($categoryId);

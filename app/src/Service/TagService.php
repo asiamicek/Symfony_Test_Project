@@ -10,7 +10,6 @@ use App\Repository\TagRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class TagService.
@@ -39,22 +38,6 @@ class TagService implements TagServiceInterface
         $this->paginator = $paginator;
     }
 
-    //    /**
-    //     * Get paginated list.
-    //     *
-    //     * @param int $page Page number
-    //     * @param UserInterface $user    User entity
-    //     *
-    //     * @return PaginationInterface<string, mixed> Paginated list
-    //     */
-    //    public function getPaginatedList(int $page, UserInterface $user): PaginationInterface
-    //    {
-    //        return $this->paginator->paginate(
-    //            $this->tagRepository->queryByAuthor($user),
-    //            $page,
-    //            TagRepository::PAGINATOR_ITEMS_PER_PAGE
-    //        );
-    //    }
     /**
      * Get paginated list.
      *
@@ -104,11 +87,6 @@ class TagService implements TagServiceInterface
      */
     public function save(Tag $tag): void
     {
-        //        if ($tag->getId() == null) {
-        //            $tag->setCreatedAt(new \DateTimeImmutable());
-        //        }
-        //        $tag->setUpdatedAt(new \DateTimeImmutable());
-
         $this->tagRepository->save($tag);
     }
 

@@ -40,9 +40,6 @@ class CategoryServiceTest extends WebTestCase
         $this->entityManager = $container->get('doctrine.orm.entity_manager');
         $this->repository = (static::getContainer()->get('doctrine'))->getRepository(Category::class);
 
-//        foreach ($this->repository->findAll() as $object) {
-//            $this->repository->delete($object, true);
-//        }
     }
 
     /**

@@ -181,13 +181,6 @@ class CategoryController extends AbstractController
     #[Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, Category $category): Response
     {
-        //        $id = $category->getId();
-        //
-        //        if ($category->checkPostsByCategoryId($id, $entityManager)) {
-        //            $this->addFlash('warning', 'message_category_contains_notes');
-        //
-        //            return $this->redirectToRoute('category_index');
-        //        }
         if (!$this->isGranted('ROLE_ADMIN')) {
             $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
 

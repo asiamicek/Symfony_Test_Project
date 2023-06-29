@@ -49,36 +49,4 @@ class IndexControllerTest extends BaseTest
         $this->assertEquals(200, $resultStatusCode);
     }
 
-//    public function testIndex()
-//    {
-////        $client = static::createClient();
-//
-//        // Get the post service from the container
-//        $postService = self::$container->get(PostServiceInterface::class);
-//
-//        // Create a user with ROLE_USER and ROLE_ADMIN roles
-//        $user = $this->createUser(['ROLE_USER', 'ROLE_ADMIN'], 'index_adminn@example.com', 'ia');
-//
-//        $category = $this->createCategory('indexcategory');
-//
-//        // Create a few posts and save them
-//        $post1 = $this->createPost($user, $category);
-//        // Set up post1 properties
-//        $postService->save($post1);
-//
-//        $post2 = $this->createPost($user, $category);
-//        // Set up post2 properties
-//        $postService->save($post2);
-//
-//        // Create an instance of the IndexController and inject the real PostService
-//        $indexController = new IndexController($postService);
-//
-//        // Call the index method directly
-//        $response = $indexController->index(new Request());
-//
-//        // Assert that the response is successful
-//        $this->assertTrue($response->isSuccessful());
-//
-//        // Add more assertions as needed to validate the response content
-//    }
 }

@@ -36,21 +36,6 @@ class UserdataTypeTest extends TypeTestCase
         $this->assertEquals($expected->getNickname(), $model->getNickname());
         $this->assertEquals($expected->getEmail(), $model->getEmail());
 
-
-        //
-//        $passwordHasher = static::getContainer()->get('security.password_hasher');
-//        $user = new User();
-//        $user->setEmail($email);
-//        $user->setRoles($roles);
-//        $user->setNickname($nickname);
-//        $user->setPassword(
-//            $passwordHasher->hashPassword(
-//                $user,
-//                'p@55w0rd'
-//            )
-//        );
-//        $userRepository = static::getContainer()->get(UserRepository::class);
-//        $userRepository->save($user, true);
     }
 
 
