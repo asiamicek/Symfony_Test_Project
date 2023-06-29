@@ -233,7 +233,7 @@ class CommentController extends AbstractController
             return $this->redirectToRoute('post_index');
         }
 
-        $form = $this->createForm(CommentType::class, $comment, [
+        $form = $this->createForm(FormType::class, $comment, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('comment_delete', ['id' => $comment->getId()]),
         ]);

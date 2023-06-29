@@ -71,6 +71,10 @@
                 <source>action.show</source>
                 <target>Display</target>
             </trans-unit>
+            <trans-unit id="action.show_posts">
+                <source>action.show_posts</source>
+                <target>View posts</target>
+            </trans-unit>
             <trans-unit id="action_registered">
                 <source>action_registration</source>
                 <target>Register</target>
@@ -190,6 +194,10 @@
             <trans-unit id="label_tags">
                 <source>label_tags</source>
                 <target>Tags</target>
+            </trans-unit>
+            <trans-unit id="label_tags_add">
+                <source>label_tags_add</source>
+                <target>Tags (separate with a comma)</target>
             </trans-unit>
             <trans-unit id="label_title">
                 <source>label_title</source>

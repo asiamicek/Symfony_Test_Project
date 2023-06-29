@@ -33,7 +33,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for post in posts | slice(0, 5) %}
+        {% for post in posts | sort((a, b) => b.updatedAt <=> a.updatedAt) | slice(0, 5) %}
             <tr>
                 <td>{{ post.id }}</td>
                 <td>{{ post.createdAt|date('d-m-Y') }}</td>

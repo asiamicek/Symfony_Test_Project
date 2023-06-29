@@ -28,8 +28,9 @@
                     <a class="nav-item nav-link" href="{{ url('index') }}" title="{{ 'index'|trans }}">&#x1F3E0;</a>
                     <a class="nav-item nav-link" href="{{ url('post_index') }}" title="{{ 'post_index'|trans }}">{{ 'post_index'|trans }}</a>
                     <a class="nav-item nav-link" href="{{ url('category_index') }}" title="{{ 'category_index'|trans }}">{{ 'category_index'|trans }}</a>
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <a class="nav-item nav-link" href="{{ url('tag_index') }}" title="{{ 'tag_index'|trans }}">{{ 'tag_index'|trans }}</a>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="nav-item nav-link" href="{{ url('user_index') }}" title="{{ 'user_index'|trans }}">{{ 'user_index'|trans }}</a>
                     {% endif %}

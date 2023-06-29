@@ -37,16 +37,25 @@
                     <td>{{ category.id }}</td>
                     <td>{{ category.title }}</td>
                     <td>
+                        {% if category.getPosts().count() != 0 %}
                         <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action.show'|trans }}">
-                            {{ 'action.show'|trans }}
+                            {{ 'action.show_posts'|trans }}
                         </a>
+                            {% else %}
+                               <a>- - - - - - - - - -</a>
+                        {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action.edit'|trans }}">
                                 {{ 'action.edit'|trans }}
                             </a>
-                            <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action.delete'|trans }}">
-                                {{ 'action.delete'|trans }}
-                            </a>
+                            {% if category.getPosts().count() == 0 %}
+                                <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action.delete'|trans }}">
+                                    {{ 'action.delete'|trans }}
+                                </a>
+                                {% else %}
+                                    <a>- - - -</a>
+
+                            {% endif %}
                         {% endif %}
                     </td>
                 </tr>

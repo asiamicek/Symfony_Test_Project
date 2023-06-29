@@ -83,8 +83,8 @@ class CategoryServiceTest extends WebTestCase
     {
         // given
         $page = 1;
-        $dataSetSize = 5;
-        $expectedResultSize = 5;
+        $dataSetSize = 6;
+        $expectedResultSize = 10;
         $categoryRepository =
             static::getContainer()->get(CategoryRepository::class);
 

@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 /**
  * Class PostController.
@@ -240,7 +241,7 @@ class PostController extends AbstractController
             return $this->redirectToRoute('post_index');
         }
 
-        $form = $this->createForm(PostType::class, $post, [
+        $form = $this->createForm(FormType::class, $post, [
             'method' => 'DELETE',
             'action' => $this->generateUrl('post_delete', ['id' => $post->getId()]),
         ]);
