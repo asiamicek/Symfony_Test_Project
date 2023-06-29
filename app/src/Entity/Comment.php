@@ -154,4 +154,13 @@ class Comment
 
         return $this;
     }
+
+    /**
+     * Getter for Author.
+     * @return User|null author
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
 }

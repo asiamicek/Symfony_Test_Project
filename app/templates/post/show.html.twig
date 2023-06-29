@@ -25,8 +25,8 @@
             <tbody>
                 <tr>
                     <td>{{ post.author.nickname }}</td>
-                    <td>{{ post.createdAt|date('Y/m/d') }}</td>
-                    <td>{{ post.updatedAt|date('Y/m/d') }}</td>
+                    <td>{{ post.createdAt|date('d-m-Y') }}</td>
+                    <td>{{ post.updatedAt|date('d-m-Y') }}</td>
                     <td>
                         {% if is_granted('EDIT', post) %}
                             <a href="{{ url('post_edit', {id: post.id}) }}" title="{{ 'action.edit'|trans }}">

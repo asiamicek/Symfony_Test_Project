@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Registration Controller.
@@ -28,13 +29,20 @@ class RegistrationController extends AbstractController
     private UserService $userService;
 
     /**
+     * Translator.
+     */
+    private TranslatorInterface $translator;
+
+    /**
      * Constructor.
      *
      * @param UserService $userService User Service
+     * @param TranslatorInterface      $translator      Translator
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, TranslatorInterface $translator)
     {
         $this->userService = $userService;
+        $this->translator = $translator;
     }
 
     /**
@@ -67,7 +75,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'message.registered_successfully');
+            $this->addFlash('success', $this->translator->trans('message.registered_successfully'));
 
             return $userAuthenticator->authenticateUser(
                 $user,

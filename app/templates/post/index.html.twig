@@ -38,8 +38,8 @@
             {% for post in pagination.items %}
                 <tr>
                     <td>{{ post.id }}</td>
-                    <td>{{ post.createdAt|date('Y/m/d') }}</td>
-                    <td>{{ post.updatedAt|date('Y/m/d') }}</td>
+                    <td>{{ post.createdAt|date('d-m-Y') }}</td>
+                    <td>{{ post.updatedAt|date('d-m-Y') }}</td>
                     <td>{{ post.title }}</td>
                     <td><a href="{{ url('post_index', {'filters.category_id' : post.category.id}) }}" title="{{ post.category.title }}">
                             {{ post.category.title }}

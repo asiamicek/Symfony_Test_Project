@@ -42,7 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 64)]
     #[ORM\Column(type: 'string', length: 64, unique: true)]
-    private $nickname;
+    private ?string $nickname;
 
     /**
      * Roles.

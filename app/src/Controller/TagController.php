@@ -134,108 +134,108 @@ class TagController extends AbstractController
     //        );
     //    }
 
-    /**
-     * Edit action.
-     *
-     * @param Request $request HTTP request
-     * @param Tag     $tag     Tag entity
-     *
-     * @return Response HTTP response
-     */
-    #[Route(
-        '/{id}/edit',
-        name: 'tag_edit',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: 'GET|PUT',
-    )]
-    #[IsGranted(
-        'EDIT',
-        subject: 'tag',
-    )]
-    public function edit(Request $request, Tag $tag): Response
-    {
-        $form = $this->createForm(
-            TagType::class,
-            $tag,
-            [
-                'method' => 'PUT',
-                'action' => $this->generateUrl(
-                    'tag_edit',
-                    ['id' => $tag->getId()]
-                ),
-            ]
-        );
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->tagService->save($tag);
-            $this->addFlash(
-                'success',
-                $this->translator->trans('message_updated_successfully')
-            );
-
-            return $this->redirectToRoute('tag_index');
-        }
-
-        return $this->render(
-            'tag/edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'tag' => $tag,
-            ]
-        );
-    }
-
-    /**
-     * Delete action.
-     *
-     * @param Request $request HTTP request
-     * @param Tag     $tag     Tag entity
-     *
-     * @return Response HTTP response
-     */
-    #[Route(
-        '/{id}/delete',
-        name: 'tag_delete',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: 'GET|DELETE',
-    )]
-    #[IsGranted(
-        'DELETE',
-        subject: 'tag',
-    )]
-    public function delete(Request $request, Tag $tag): Response
-    {
-        $form = $this->createForm(
-            FormType::class,
-            $tag,
-            [
-                'method' => 'DELETE',
-                'action' => $this->generateUrl(
-                    'tag_delete',
-                    ['id' => $tag->getId()]
-                ),
-            ]
-        );
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->tagService->delete($tag);
-
-            $this->addFlash(
-                'success',
-                $this->translator->trans('message_deleted_successfully')
-            );
-
-            return $this->redirectToRoute('tag_index');
-        }
-
-        return $this->render(
-            'tag/delete.html.twig',
-            [
-                'form' => $form->createView(),
-                'tag' => $tag,
-            ]
-        );
-    }
+//    /**
+//     * Edit action.
+//     *
+//     * @param Request $request HTTP request
+//     * @param Tag     $tag     Tag entity
+//     *
+//     * @return Response HTTP response
+//     */
+//    #[Route(
+//        '/{id}/edit',
+//        name: 'tag_edit',
+//        requirements: ['id' => '[1-9]\d*'],
+//        methods: 'GET|PUT',
+//    )]
+//    #[IsGranted(
+//        'EDIT',
+//        subject: 'tag',
+//    )]
+//    public function edit(Request $request, Tag $tag): Response
+//    {
+//        $form = $this->createForm(
+//            TagType::class,
+//            $tag,
+//            [
+//                'method' => 'PUT',
+//                'action' => $this->generateUrl(
+//                    'tag_edit',
+//                    ['id' => $tag->getId()]
+//                ),
+//            ]
+//        );
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->tagService->save($tag);
+//            $this->addFlash(
+//                'success',
+//                $this->translator->trans('message_updated_successfully')
+//            );
+//
+//            return $this->redirectToRoute('tag_index');
+//        }
+//
+//        return $this->render(
+//            'tag/edit.html.twig',
+//            [
+//                'form' => $form->createView(),
+//                'tag' => $tag,
+//            ]
+//        );
+//    }
+//
+//    /**
+//     * Delete action.
+//     *
+//     * @param Request $request HTTP request
+//     * @param Tag     $tag     Tag entity
+//     *
+//     * @return Response HTTP response
+//     */
+//    #[Route(
+//        '/{id}/delete',
+//        name: 'tag_delete',
+//        requirements: ['id' => '[1-9]\d*'],
+//        methods: 'GET|DELETE',
+//    )]
+//    #[IsGranted(
+//        'DELETE',
+//        subject: 'tag',
+//    )]
+//    public function delete(Request $request, Tag $tag): Response
+//    {
+//        $form = $this->createForm(
+//            FormType::class,
+//            $tag,
+//            [
+//                'method' => 'DELETE',
+//                'action' => $this->generateUrl(
+//                    'tag_delete',
+//                    ['id' => $tag->getId()]
+//                ),
+//            ]
+//        );
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->tagService->delete($tag);
+//
+//            $this->addFlash(
+//                'success',
+//                $this->translator->trans('message_deleted_successfully')
+//            );
+//
+//            return $this->redirectToRoute('tag_index');
+//        }
+//
+//        return $this->render(
+//            'tag/delete.html.twig',
+//            [
+//                'form' => $form->createView(),
+//                'tag' => $tag,
+//            ]
+//        );
+//    }
 }

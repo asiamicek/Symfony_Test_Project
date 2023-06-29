@@ -241,7 +241,7 @@ class CommentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->commentService->delete($comment);
-            $this->addFlash('success', 'message.deleted_successfully');
+            $this->addFlash('success', $this->translator->trans('message.deleted_successfully'));
 
             return $this->redirectToRoute('post_index');
         }

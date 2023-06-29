@@ -180,7 +180,7 @@ class PostController extends AbstractController
     public function edit(Request $request, Post $post): Response
     {
         $user = $this->security->getUser();
-        if ($post->getAuthor() !== $this->getUser() and !in_array(UserRole::ROLE_ADMIN->value, $user->getRoles())) {
+        if ($post->getAuthor() !== $this->getUser() and !$this->isGranted('ROLE_ADMIN') and !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $this->addFlash(
                 'warning',
                 $this->translator->trans('message_action_impossible')
@@ -231,7 +231,7 @@ class PostController extends AbstractController
     public function delete(Request $request, Post $post): Response
     {
         $user = $this->security->getUser();
-        if ($post->getAuthor() !== $this->getUser() and !in_array(UserRole::ROLE_ADMIN->value, $user->getRoles())) {
+        if ($post->getAuthor() !== $this->getUser() and !$this->isGranted('ROLE_ADMIN') and !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $this->addFlash(
                 'warning',
                 $this->translator->trans('message_action_impossible')

@@ -1,119 +1,123 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="pl" datatype="plaintext" original="file.ext">
+    <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="action.back_to_list">
                 <source>action.back_to_list</source>
-                <target>Powrót do listy</target>
+                <target>Back to list</target>
+            </trans-unit>
+            <trans-unit id="action.back">
+                <source>action.back</source>
+                <target>Back</target>
             </trans-unit>
             <trans-unit id="main_title">
                 <source>main_title</source>
-                <target>Osiedlowe wieści - blog sąsiedzki</target>
+                <target>Neighborhood news - neighborhood blog</target>
             </trans-unit>
             <trans-unit id="index">
                 <source>index</source>
-                <target>Strona główna</target>
+                <target>Home</target>
             </trans-unit>
             <trans-unit id="recent_posts">
                 <source>recent_posts</source>
-                <target>Ostatnio opublikowane posty</target>
+                <target>Recent posts</target>
             </trans-unit>
             <trans-unit id="action_close">
                 <source>action_close</source>
-                <target>Zamknij</target>
+                <target>Close</target>
             </trans-unit>
             <trans-unit id="action_create">
                 <source>action_create</source>
-                <target>Utwórz</target>
+                <target>Create</target>
             </trans-unit>
 
             <trans-unit id="action.delete">
                 <source>action.delete</source>
-                <target>Usuń</target>
+                <target>Delete</target>
             </trans-unit>
             <trans-unit id="action.edit">
                 <source>action.edit</source>
-                <target>Edytuj</target>
+                <target>Edit</target>
             </trans-unit>
             <trans-unit id="action.edit_data">
                 <source>action.edit_data</source>
-                <target>Edytuj dane</target>
+                <target>Edit data</target>
             </trans-unit>
             <trans-unit id="action.edit_password">
                 <source>action.edit_password</source>
-                <target>Zmień hasło</target>
+                <target>Change password</target>
             </trans-unit>
-            <trans-unit id="title.user_passsword_edit">
-                <source>title.user_passsword_edit</source>
-                <target>Zmiana hasła użytkownika</target>
+            <trans-unit id="title.user_password_edit">
+                <source>title.user_password_edit</source>
+                <target>Change user password</target>
             </trans-unit>
             <trans-unit id="action_login">
                 <source>action_login</source>
-                <target>Zaloguj</target>
+                <target>Login</target>
             </trans-unit>
             <trans-unit id="action_logout">
                 <source>action_logout</source>
-                <target>Wyloguj</target>
+                <target>Logout</target>
             </trans-unit>
             <trans-unit id="action.save">
                 <source>action.save</source>
-                <target>Zapisz</target>
+                <target>Save</target>
             </trans-unit>
             <trans-unit id="action_signup">
                 <source>action_signup</source>
-                <target>Zarejestruj</target>
+                <target>Register</target>
             </trans-unit>
             <trans-unit id="action.show">
                 <source>action.show</source>
-                <target>Wyświetl</target>
+                <target>Display</target>
             </trans-unit>
             <trans-unit id="action_registered">
                 <source>action_registration</source>
-                <target>Zarejestruj</target>
+                <target>Register</target>
             </trans-unit>
             <trans-unit id="category_create">
                 <source>category_create</source>
-                <target>Utwórz kategorię</target>
+                <target>Create category</target>
             </trans-unit>
             <trans-unit id="category_delete">
                 <source>category_delete</source>
-                <target>Usuń kategorię</target>
+                <target>Remove category</target>
             </trans-unit>
             <trans-unit id="category_edit">
                 <source>category_edit</source>
-                <target>Edytuj kategorię</target>
+                <target>Edit category</target>
             </trans-unit>
             <trans-unit id="category_index">
                 <source>category_index</source>
-                <target>Kategorie</target>
+                <target>Categories</target>
             </trans-unit>
             <trans-unit id="label_actions">
                 <source>label_actions</source>
-                <target>Operacje</target>
+                <target>Operations</target>
             </trans-unit>
             <trans-unit id="label.actions">
                 <source>label.actions</source>
-                <target>Operacje</target>
+                <target>Operations</target>
             </trans-unit>
             <trans-unit id="label_author">
                 <source>label_author</source>
-                <target>Autor</target>
+                <target>Author</target>
             </trans-unit>
             <trans-unit id="label_category">
                 <source>label_category</source>
-                <target>Kategoria</target>
+                <target>Category</target>
             </trans-unit>
             <trans-unit id="label_content">
                 <source>label_content</source>
-                <target>Treść</target>
+                <target>Content</target>
             </trans-unit>
             <trans-unit id="label_created_at">
                 <source>label_created_at</source>
-                <target>Utworzono</target>
+                <target>Created</target>
             </trans-unit>
             <trans-unit id="label.created_at">
                 <source>label.created_at</source>
-                <target>Utworzono</target>
+                <target>Created</target>
             </trans-unit>
             <trans-unit id="label_deadline">
                 <source>label_deadline</source>
@@ -125,7 +129,7 @@
             </trans-unit>
             <trans-unit id="label_firstname">
                 <source>label_firstname</source>
-                <target>Imię</target>
+                <target>Name</target>
             </trans-unit>
             <trans-unit id="label_id">
                 <source>label_id</source>
@@ -145,15 +149,19 @@
             </trans-unit>
             <trans-unit id="label_password_new">
                 <source>label_password_new</source>
-                <target>Nowe hasło</target>
+                <target>New password</target>
             </trans-unit>
             <trans-unit id="label_password_repeat">
                 <source>label_password_repeat</source>
-                <target>Powtórz hasło</target>
+                <target>Repeat password</target>
+            </trans-unit>
+            <trans-unit id="label_repeat_password">
+                <source>label_repeat_password</source>
+                <target>Repeat password</target>
             </trans-unit>
             <trans-unit id="label_password">
                 <source>label_password</source>
-                <target>Hasło</target>
+                <target>Password</target>
             </trans-unit>
             <trans-unit id="label_post">
                 <source>label_post</source>
@@ -165,211 +173,215 @@
             </trans-unit>
             <trans-unit id="label_priority">
                 <source>label_priority</source>
-                <target>Priorytet</target>
+                <target>Priority</target>
             </trans-unit>
             <trans-unit id="label_priority_form">
                 <source>label_priority_form</source>
-                <target>Priorytet (1-5)</target>
+                <target>Priority (1-5)</target>
             </trans-unit>
             <trans-unit id="label_reg_id">
                 <source>label_reg_id</source>
-                <target>Id listy</target>
+                <target>List id</target>
             </trans-unit>
             <trans-unit id="label_register">
                 <source>label_register</source>
-                <target>Lista</target>
+                <target>List</target>
             </trans-unit>
             <trans-unit id="label_tags">
                 <source>label_tags</source>
-                <target>Tagi</target>
+                <target>Tags</target>
             </trans-unit>
             <trans-unit id="label_title">
                 <source>label_title</source>
-                <target>Tytuł</target>
+                <target>Title</target>
             </trans-unit>
             <trans-unit id="label_updated_at">
                 <source>label_updated_at</source>
-                <target>Zaktualizowano</target>
+                <target>Updated</target>
             </trans-unit>
             <trans-unit id="message_category_contains_posts">
                 <source>message_category_contains_posts</source>
-                <target>Istnieją posty z wybraną kategorią!</target>
+                <target>There are posts with the selected category!</target>
             </trans-unit>
             <trans-unit id="message_category_contains_tasks">
                 <source>message_category_contains_tasks</source>
-                <target>Istnieją listy z wybraną kategorią!</target>
+                <target>There are lists with the selected category!</target>
             </trans-unit>
             <trans-unit id="message_created_successfully">
                 <source>message_created_successfully</source>
-                <target>Utworzono pomyślnie</target>
+                <target>Created successfully</target>
             </trans-unit>
             <trans-unit id="message.created_successfully">
                 <source>message.created_successfully</source>
-                <target>Utworzono pomyślnie</target>
+                <target>Created successfully</target>
             </trans-unit>
             <trans-unit id="message_edited_successfully">
                 <source>message_edited_successfully</source>
-                <target>Zedytowano pomyślnie</target>
+                <target>Edited successfully</target>
             </trans-unit>
             <trans-unit id="message.edited_successfully">
                 <source>message.edited_successfully</source>
-                <target>Zedytowano pomyślnie</target>
+                <target>Edited successfully</target>
             </trans-unit>
             <trans-unit id="message_deleted_successfully">
                 <source>message_deleted_successfully</source>
-                <target>Usunięto pomyślnie</target>
+                <target>Removed successfully</target>
             </trans-unit>
             <trans-unit id="message.deleted_successfully">
                 <source>message.deleted_successfully</source>
-                <target>Usunięto pomyślnie</target>
+                <target>Removed successfully</target>
             </trans-unit>
             <trans-unit id="message_empty_list">
                 <source>message_empty_list</source>
-                <target>Brak elementów do wyświetlenia</target>
+                <target>There are no items to display</target>
             </trans-unit>
             <trans-unit id="message.empty_list">
                 <source>message.empty_list</source>
-                <target>Brak elementów do wyświetlenia</target>
+                <target>There are no items to display</target>
             </trans-unit>
             <trans-unit id="message_form_error">
                 <source>message_form_error</source>
-                <target>Błąd formularza!</target>
+                <target>Form error!</target>
             </trans-unit>
             <trans-unit id="message.form_error">
                 <source>message.form_error</source>
-                <target>Błąd formularza!</target>
+                <target>Form error!</target>
             </trans-unit>
             <trans-unit id="message_item_not_found">
                 <source>message_item_not_found</source>
-                <target>Nie znaleziono obiektu</target>
+                <target>Object not found</target>
             </trans-unit>
             <trans-unit id="message_no_record">
                 <source>message_no_record</source>
-                <target>Brak rekordu</target>
+                <target>No record</target>
             </trans-unit>
             <trans-unit id="message.record_not_found">
                 <source>message.record_not_found</source>
-                <target>Brak rekordu</target>
+                <target>No record</target>
             </trans-unit>
             <trans-unit id="message_register_contains_tasks">
                 <source>message_register_contains_tasks</source>
-                <target>Lista zawiera zadania!</target>
+                <target>The list contains tasks!</target>
             </trans-unit>
             <trans-unit id="message_registered_successfully">
                 <source>message_registered_successfully</source>
-                <target>Rejestracja powiodła się</target>
+                <target>Registration successful</target>
+            </trans-unit>
+            <trans-unit id="message.registered_successfully">
+                <source>message.registered_successfully</source>
+                <target>Registration successful</target>
             </trans-unit>
             <trans-unit id="message_tag_contains_post">
                 <source>message_tag_contains_post</source>
-                <target>Istnieją posty z wybranym tagiem!</target>
+                <target>There are posts with the selected tag!</target>
             </trans-unit>
             <trans-unit id="message_updated_successfully">
                 <source>message_updated_successfully</source>
-                <target>Zaktualizowano pomyślnie</target>
+                <target>Updated successfully</target>
             </trans-unit>
             <trans-unit id="post_create">
                 <source>post_create</source>
-                <target>Utwórz post</target>
+                <target>Create post</target>
             </trans-unit>
             <trans-unit id="post_delete">
                 <source>post_delete</source>
-                <target>Usuń post</target>
+                <target>Remove post</target>
             </trans-unit>
             <trans-unit id="post_details">
                 <source>post_details</source>
-                <target>Szczegóły postu</target>
+                <target>Post details</target>
             </trans-unit>
             <trans-unit id="post_edit">
                 <source>post_edit</source>
-                <target>Edytuj post</target>
+                <target>Edit post</target>
             </trans-unit>
             <trans-unit id="post_index">
                 <source>post_index</source>
-                <target>Posty</target>
+                <target>Posts</target>
             </trans-unit>
             <trans-unit id="action.create_comment">
                 <source>action.create_comment</source>
-                <target>Dodaj komentarz</target>
+                <target>Add comment</target>
             </trans-unit>
             <trans-unit id="action.create_comment_no">
                 <source>action.create_comment_no</source>
-                <target>Zaloguj się, aby móc skomentować post</target>
+                <target>Sign in to comment on a post</target>
             </trans-unit>
             <trans-unit id="title_comment_delete">
                 <source>title_comment_delete</source>
-                <target>Usuwanie komentarza</target>
+                <target>Delete comment</target>
             </trans-unit>
             <trans-unit id="title_comment_delete_message">
                 <source>title_comment_delete_message</source>
-                <target>Czy na pewno chcesz usunąć wskazany komentarz?</target>
+                <target>Are you sure you want to delete this comment?</target>
             </trans-unit>
             <trans-unit id="title.comment_list">
                 <source>title.comment_list</source>
-                <target>Komentarze</target>
+                <target>Comments</target>
             </trans-unit>
             <trans-unit id="label_comments">
                 <source>label_comments</source>
-                <target>Komentarze</target>
+                <target>Comments</target>
             </trans-unit>
             <trans-unit id="label.content">
                 <source>label.content</source>
-                <target>Zawartość</target>
+                <target>Content</target>
             </trans-unit>
             <trans-unit id="tag_delete">
                 <source>tag_delete</source>
-                <target>Usuń tag</target>
+                <target>Remove tag</target>
             </trans-unit>
             <trans-unit id="tag_edit">
                 <source>tag_edit</source>
-                <target>Edytuj tag</target>
+                <target>Edit tag</target>
             </trans-unit>
             <trans-unit id="tag_index">
                 <source>tag_index</source>
-                <target>Tagi</target>
+                <target>Tags</target>
             </trans-unit>
             <trans-unit id="task_all_index">
                 <source>task_all_index</source>
-                <target>Wszystkie zadania</target>
+                <target>All tasks</target>
             </trans-unit>
             <trans-unit id="task_create">
                 <source>task_create</source>
-                <target>Utwórz zadanie</target>
+                <target>Create task</target>
             </trans-unit>
             <trans-unit id="task_delete">
                 <source>task_delete</source>
-                <target>Usuń zadanie</target>
+                <target>Delete task</target>
             </trans-unit>
             <trans-unit id="task_details">
                 <source>task_details</source>
-                <target>Szczegóły zadania</target>
+                <target>Task details</target>
             </trans-unit>
             <trans-unit id="task_edit">
                 <source>task_edit</source>
-                <target>Edytuj zadanie</target>
+                <target>Edit task</target>
             </trans-unit>
             <trans-unit id="task_index">
                 <source>task_index</source>
-                <target>Zadania</target>
+                <target>Tasks</target>
             </trans-unit>
             <trans-unit id="title.category_details">
                 <source>title.category_details</source>
-                <target>Szczegóły kategorii</target>
+                <target>Category details</target>
             </trans-unit>
             <trans-unit id="title_category_create">
                 <source>title_category_create</source>
-                <target>Tworzenie kategorii</target>
+                <target>Create categories</target>
             </trans-unit>
             <trans-unit id="title_category_delete">
                 <source>title_category_delete</source>
-                <target>Usuwanie kategorii</target>
+                <target>Deleting categories</target>
             </trans-unit>
             <trans-unit id="title_category_index">
                 <source>title_category_index</source>
-                <target>Kategorie</target>
+                <target>Categories</target>
             </trans-unit>
             <trans-unit id="title_category_edit">
                 <source>title_category_edit</source>
-                <target>Edycja kategorii</target>
+                <target>Category editing</target>
             </trans-unit>
             <trans-unit id="title_index">
                 <source>title_index</source>
@@ -377,141 +389,143 @@
             </trans-unit>
             <trans-unit id="title_login">
                 <source>title_login</source>
-                <target>Logowanie</target>
+                <target>Login</target>
             </trans-unit>
             <trans-unit id="login_on">
                 <source>login_on</source>
-                <target>Jesteś zalogowany jako</target>
+                <target>You are logged in as</target>
             </trans-unit>
             <trans-unit id="title_record_list">
                 <source>title_record_list</source>
-                <target>Lista rekordów</target>
+                <target>List of records</target>
             </trans-unit>
             <trans-unit id="title_post_create">
                 <source>title_post_create</source>
-                <target>Tworzenie postu</target>
+                <target>Create post</target>
             </trans-unit>
             <trans-unit id="title_post_create_message">
                 <source>title_post_create_message</source>
-                <target>Wypełnij formularz, aby dodać nowy post.</target>
+                <target>Fill out the form to add a new post.</target>
             </trans-unit>
             <trans-unit id="title_post_delete_message">
                 <source>title_post_delete_message</source>
-                <target>Czy na pewno chcesz usunąć wskazany post?</target>
+                <target>Are you sure you want to delete this post?</target>
             </trans-unit>
             <trans-unit id="title_category_delete_message">
                 <source>title_category_delete_message</source>
-                <target>Czy na pewno chcesz usunąć wskazaną kategorię?</target>
+                <target>Are you sure you want to delete this category?</target>
             </trans-unit>
             <trans-unit id="title_category_create_message">
                 <source>title_category_create_message</source>
-                <target>Wypełnij formularz, aby dodać nową kategorię.</target>
+                <target>Fill out the form to add a new category.</target>
             </trans-unit>
             <trans-unit id="title_post_edit_message">
                 <source>title_post_edit_message</source>
-                <target>Wypełnij formularz, aby zedytować post.</target>
+                <target>Fill out the form to edit the post.</target>
             </trans-unit>
             <trans-unit id="title_category_edit_message">
                 <source>title_category_edit_message</source>
-                <target>Wypełnij formularz, aby zedytować post.</target>
+                <target>Fill out the form to edit the category.</target>
             </trans-unit>
             <trans-unit id="title_post_delete">
                 <source>title_post_delete</source>
-                <target>Usuwanie postu</target>
+                <target>Delete post</target>
             </trans-unit>
             <trans-unit id="title_post_details">
                 <source>title_post_details</source>
-                <target>Szczegóły postu</target>
+                <target>Post details</target>
             </trans-unit>
             <trans-unit id="title_post_edit">
                 <source>title_post_edit</source>
-                <target>Edycja postu</target>
+                <target>Edit post</target>
             </trans-unit>
             <trans-unit id="title_post_index">
                 <source>title_post_index</source>
-                <target>Posty</target>
+                <target>Posts</target>
             </trans-unit>
             <trans-unit id="title_comment_details">
                 <source>title_comment_details</source>
-                <target>Szczegóły komentarza</target>
+                <target>Comment details</target>
             </trans-unit>
             <trans-unit id="title_register_delete">
                 <source>title_register_delete</source>
-                <target>Usuwanie listy</target>
+                <target>Delete list</target>
             </trans-unit>
             <trans-unit id="title_register_edit">
                 <source>title_register_edit</source>
-                <target>Edycja listy</target>
+                <target>Edit list</target>
             </trans-unit>
             <trans-unit id="title_register_index">
                 <source>title_register_index</source>
-                <target>Listy zadań</target>
-            </trans-unit>
+                <target>Task lists</target></trans-unit>
             <trans-unit id="title_registration">
                 <source>title_registration</source>
-                <target>Rejestracja</target>
+                <target>Registration</target>
             </trans-unit>
             <trans-unit id="title_tag_delete">
                 <source>title_tag_delete</source>
-                <target>Usuwanie tagu</target>
+                <target>Remove tag</target>
             </trans-unit>
             <trans-unit id="title_tag_edit">
                 <source>title_tag_edit</source>
-                <target>Edycja tagu</target>
+                <target>Edit tag</target>
             </trans-unit>
             <trans-unit id="title_tag_index">
                 <source>title_tag_index</source>
-                <target>Tagi</target>
+                <target>Tags</target>
             </trans-unit>
             <trans-unit id="title.tag_list">
                 <source>title.tag_list</source>
-                <target>Lista tagów</target>
+                <target>List of tags</target>
             </trans-unit>
             <trans-unit id="title_user_details">
                 <source>title_user_details</source>
-                <target>Dane użytkownika</target>
+                <target>User data</target>
             </trans-unit>
             <trans-unit id="title_user_edit">
                 <source>title_user_edit</source>
-                <target>Edycja użytkownika</target>
+                <target>Edit user</target>
             </trans-unit>
             <trans-unit id="button_user_edit">
                 <source>button_user_edit</source>
-                <target>Edycja użytkownika</target>
+                <target>Edit user</target>
             </trans-unit>
             <trans-unit id="button_log_out">
                 <source>button_log_out</source>
-                <target>Wyloguj</target>
+                <target>Logout</target>
             </trans-unit>
             <trans-unit id="title_user_index">
                 <source>title_user_index</source>
-                <target>Użytkownicy</target>
+                <target>Users</target>
             </trans-unit>
             <trans-unit id="user_details">
                 <source>user_details</source>
-                <target>Dane użytkownika</target>
+                <target>User data</target>
             </trans-unit>
             <trans-unit id="user_edit">
                 <source>user_edit</source>
-                <target>Edytuj dane użytkownika</target>
+                <target>Edit user details</target>
             </trans-unit>
             <trans-unit id="user_index">
                 <source>user_index</source>
-                <target>Użytkownicy</target>
+                <target>Users</target>
             </trans-unit>
             <trans-unit id="message_record_not_found">
                 <source>message_record_not_found</source>
-                <target>Nie znaleziono rekordu</target>
+                <target>Record not found</target>
             </trans-unit>
             <trans-unit id="message_action_impossible">
                 <source>message_action_impossible</source>
-                <target>Brak możliwości wykonania operacji</target>
+                <target>Unable to perform operation</target>
             </trans-unit>
             <trans-unit id="hello_login">
                 <source>hello_login</source>
-                <target>Zaloguj się</target>
+                <target>Login</target>
             </trans-unit>
-
+            <trans-unit id="title.user_passsword_edit">
+                <source>title.user_passsword_edit</source>
+                <target>Change user password</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

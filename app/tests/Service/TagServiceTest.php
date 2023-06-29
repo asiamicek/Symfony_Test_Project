@@ -70,7 +70,7 @@ class TagServiceTest extends BaseTest
         $result = $this->tagService->getPaginatedList($page);
 
         // then
-        $this->assertEquals(5, $result->count());
+        $this->assertEquals(10, $result->count());
     }
 
     /**

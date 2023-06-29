@@ -195,7 +195,7 @@ class CategoryController extends AbstractController
         }
 
         if ($category->getPosts()->count()) {
-            $this->addFlash('warning', 'message_category_contains_posts');
+            $this->addFlash('warning', $this->translator->trans('message_category_contains_posts'));
 
             return $this->redirectToRoute('category_index');
         }

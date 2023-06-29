@@ -103,7 +103,7 @@ class UserController extends AbstractController
             );
         }
         if ($user !== $log) {
-            $this->addFlash('warning', 'message.action_impossible');
+            $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
 
             return $this->redirectToRoute('index');
         }
@@ -162,7 +162,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->save($user);
-            $this->addFlash('success', 'message_updated_successfully');
+            $this->addFlash('success', $this->translator->trans('message_updated_successfully'));
 
             return $this->redirectToRoute('user_index');
         }
@@ -232,7 +232,7 @@ class UserController extends AbstractController
             }
 
             $this->userService->save($user);
-            $this->addFlash('success', 'message.updated_successfully');
+            $this->addFlash('success', $this->translator->trans('message_updated_successfully'));
 
             return $this->redirectToRoute('index');
         }

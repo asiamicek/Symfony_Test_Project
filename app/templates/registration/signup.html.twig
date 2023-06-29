@@ -6,7 +6,7 @@
 {% block body %}
 
     {% include 'default/_form.html.twig' with {
-        page_title: 'title_registration',
+        page_title: 'title_registration'|trans,
         attr: {
             method: 'POST',
             action: url('registration_signup')

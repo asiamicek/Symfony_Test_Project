@@ -36,8 +36,8 @@
         {% for post in posts | slice(0, 5) %}
             <tr>
                 <td>{{ post.id }}</td>
-                <td>{{ post.createdAt|date('Y/m/d') }}</td>
-                <td>{{ post.updatedAt|date('Y/m/d') }}</td>
+                <td>{{ post.createdAt|date('d-m-Y') }}</td>
+                <td>{{ post.updatedAt|date('d-m-Y') }}</td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.category.title }}</td>
                 <td>
