@@ -53,22 +53,23 @@ class CommentRepository extends ServiceEntityRepository
             ->orderBy('comment.createdAt', 'DESC');
     }
 
-    /**
-     * Query operation by post.
-     *
-     * @param Post $post Post entity
-     *
-     * @return QueryBuilder Query builder
-     */
-    public function queryByPost(Post $post): QueryBuilder
-    {
-        $queryBuilder = $this->queryAll();
-
-        $queryBuilder->andWhere('comment.post = :post')
-            ->setParameter('post', $post);
-
-        return $queryBuilder;
-    }
+//    /**
+//     * Query operation by post.
+//     *
+//     * @param Post $post Post entity
+//     *
+//     * @return QueryBuilder Query builder
+//     */
+//    public function queryByPost(Post $post): QueryBuilder
+//    {
+//        $queryBuilder = $this->queryAll();
+//
+//        $queryBuilder->select('partial comment.{id, content}')
+//        ->andWhere('comment.post = :post')
+//            ->setParameter('post', $post);
+//
+//        return $queryBuilder;
+//    }
 
     /**
      * Save entity.

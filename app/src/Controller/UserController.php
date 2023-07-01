@@ -154,7 +154,7 @@ class UserController extends AbstractController
             $this->userService->save($user);
             $this->addFlash('success', $this->translator->trans('message_updated_successfully'));
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('index');
         }
 
         return $this->render(
@@ -185,7 +185,7 @@ class UserController extends AbstractController
     {
         $loggedInUser = $this->getUser();
         // Check if the logged-in user is not null and has the necessary permissions
-        if ($loggedInUser !== $user) {
+        if (!$this->isGranted('ROLE_ADMIN') && $loggedInUser !== $user) {
             // Handle the case when the user is not authorized to edit this user
             // Redirect or show an error message
             // For example:

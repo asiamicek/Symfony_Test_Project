@@ -531,6 +531,10 @@
                 <source>hello_login</source>
                 <target>Zaloguj się</target>
             </trans-unit>
+            <trans-unit id="message.no_posts">
+                <source>message.no_posts</source>
+                <target>Kategoria nie zawiera postów</target>
+            </trans-unit>
 
         </body>
     </file>

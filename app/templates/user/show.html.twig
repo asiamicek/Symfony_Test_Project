@@ -25,12 +25,12 @@
             <a href="{{ url('user_edit', {id: user.id}) }}" title="{{ 'action.edit_data'|trans }}" id="op">
                 {{ 'action.edit_data'|trans }}
             </a>
-            {% if app.user.id == user.id %}
+
             <a>--</a>
             <a href="{{ url('user_edit_password', {id: user.id}) }}" title="{{ 'action.edit_password'|trans }}" id="op">
                 {{ 'action.edit_password'|trans }}
             </a>
-            {% endif %}
+
         </p>
     {% else %}
         <p>

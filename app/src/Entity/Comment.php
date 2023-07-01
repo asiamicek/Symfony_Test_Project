@@ -46,7 +46,7 @@ class Comment
     /**
      * Post.
      */
-    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
 

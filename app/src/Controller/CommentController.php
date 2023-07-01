@@ -7,9 +7,12 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Enum\UserRole;
+use App\Entity\User;
+use App\Form\Type\CommentType;
 use App\Service\CommentService;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;

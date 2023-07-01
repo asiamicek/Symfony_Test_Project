@@ -7,7 +7,9 @@ namespace App\Service;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use App\Repository\PostRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -22,6 +24,11 @@ class CategoryService implements CategoryServiceInterface
     private CategoryRepository $categoryRepository;
 
     /**
+     * Post repository.
+     */
+    private PostRepository $postRepository;
+
+    /**
      * Paginator.
      */
     private PaginatorInterface $paginator;
@@ -30,11 +37,13 @@ class CategoryService implements CategoryServiceInterface
      * Constructor.
      *
      * @param CategoryRepository $categoryRepository Category repository
+     * @param PostRepository $postRepository Post repository
      * @param PaginatorInterface $paginator          Paginator
      */
-    public function __construct(CategoryRepository $categoryRepository, PaginatorInterface $paginator)
+    public function __construct(CategoryRepository $categoryRepository, PostRepository $postRepository, PaginatorInterface $paginator)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->postRepository = $postRepository;
         $this->paginator = $paginator;
     }
 
@@ -49,10 +58,39 @@ class CategoryService implements CategoryServiceInterface
     {
         return $this->paginator->paginate(
             $this->categoryRepository->queryAll(),
+//            $posts -> categoryRepository->postsAll(),
             $page,
             CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
+
+//    public function getPosts(): QueryBuilder
+//    {
+//        return $this->postRepository->queryPosts();
+//    }
+    public function getPosts(): array
+    {
+        $queryBuilder = $this->postRepository->queryPosts();
+        $query = $queryBuilder->getQuery();
+        $results = $query->getArrayResult();
+
+        return $results;
+    }
+
+
+//    /**
+//     * Get paginated list.
+//     *
+//     * @param int $page Page number
+//     *
+//     *
+//     */
+//    public function getPosts()
+//    {
+//        return  $this->categoryRepository->queryAll();
+//
+//
+//    }
 
     /**
      * Save entity.

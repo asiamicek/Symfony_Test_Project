@@ -6,6 +6,7 @@
 namespace App\Service;
 
 use App\Entity\Comment;
+use App\Entity\Post;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -21,6 +22,15 @@ interface CommentServiceInterface
      * @return PaginationInterface<string, mixed> Paginated list
      */
     public function getPaginatedList(int $page): PaginationInterface;
+
+    /**
+     * Finds posts by category.
+     *
+     * @param Post $post Post entity
+     *
+     * @return array Array of posts in the category
+     */
+    public function findByPost(Post $post): array;
 
     /**
      * Save entity.

@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class TagController.
  *
- * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+ *
  */
 #[Route('/tag')]
 class TagController extends AbstractController
@@ -51,7 +51,7 @@ class TagController extends AbstractController
      *
      * @return Response HTTP response
      *
-     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+     *
      */
     #[Route(
         '/',

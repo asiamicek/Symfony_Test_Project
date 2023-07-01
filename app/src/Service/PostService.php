@@ -5,10 +5,13 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Repository\PostRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -129,7 +132,22 @@ class PostService implements PostServiceInterface
      */
     public function getAllPosts(): array
     {
-        return $this->postRepository->findAll();
+        $queryBuilder = $this->postRepository->queryAll([]);
+        $query = $queryBuilder->getQuery();
+        return $query->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+    }
+
+    /**
+     * Finds posts by category.
+     *
+     * @param Category $category
+     *
+     * @return array Array of posts in the category
+     */
+    public function findByCategory(Category $category): array
+    {
+        return $this->postRepository->findBy(['category' => $category]);
     }
 
     /**

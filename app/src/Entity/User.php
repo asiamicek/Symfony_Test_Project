@@ -8,6 +8,7 @@ namespace App\Entity;
 use App\Entity\Enum\UserRole;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,6 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'email_idx', columns: ['email'])]
+#[ORM\UniqueConstraint(name: 'nickname_idx', columns: ['nickname'])]
+//#[UniqueEntity(fields: ['email', 'nickname'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -34,7 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Email]
-    private ?string $email;
+    private ?string $email = null;
 
     /**
      * Nickname.
@@ -42,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 64)]
     #[ORM\Column(type: 'string', length: 64, unique: true)]
-    private ?string $nickname;
+    private ?string $nickname = null;
 
     /**
      * Roles.
@@ -55,8 +58,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Password.
      */
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'string')]
-    private ?string $password;
+    private ?string $password = null;
 
     /**
      * Getter for id.

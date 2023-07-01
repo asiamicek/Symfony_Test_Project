@@ -72,6 +72,9 @@ class PostController extends AbstractController
     #[Route(name: 'post_index', methods: 'GET')]
     public function index(Request $request): Response
     {
+//        $user = $this->getUser();
+//        var_dump($user);
+
         $filters = $this->getFilters($request);
         $pagination = $this->postService->getPaginatedList(
             $request->query->getInt('page', 1),
@@ -113,9 +116,11 @@ class PostController extends AbstractController
             //            $this->categoryService->save($category);
         }
 
+        $comments = $this->commentService->findByPost($post);
+
         return $this->render(
             'post/show.html.twig',
-            ['post' => $post, 'form' => $form->createView()]
+            ['post' => $post, 'form' => $form->createView(), 'comments' => $comments]
         );
     }
 
@@ -142,13 +147,20 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
+//        var_dump($user);
+//        var_dump($post);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->postService->save($post);
+
+
 
             $this->addFlash(
                 'success',
                 $this->translator->trans('message_created_successfully')
             );
+
+
 
             return $this->redirectToRoute('post_index');
         }

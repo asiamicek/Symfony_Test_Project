@@ -71,18 +71,18 @@ class Post
     /**
      * Category.
      */
-    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category;
 
-    /**
-     * Comments collection.
-     *
-     * @var Collection|ArrayCollection
-     */
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, fetch: 'EXTRA_LAZY')]
-    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'post_id', onDelete: 'CASCADE')]
-    private Collection $comments;
+//    /**
+//     * Comments collection.
+//     *
+//     * @var Collection|ArrayCollection
+//     */
+//    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, fetch: 'EXTRA_LAZY')]
+//    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'post_id', onDelete: 'CASCADE')]
+//    private Collection $comments;
 
     /**
      * Tags.
@@ -98,7 +98,7 @@ class Post
      */
     #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $author = null;
+    private ?User $author;
 
     /**
      * Comments constructor.
@@ -239,32 +239,32 @@ class Post
         return $this;
     }
 
-    /**
-     * Getter for Comments.
-     *
-     * @return Collection<int, Comment> comments
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    /**
-     * Add Comment function.
-     *
-     * @param Comment $comment comment
-     *
-     * @return $this this
-     */
-    public function addComment(Comment $comment): static
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setPost($this);
-        }
-
-        return $this;
-    }
+//    /**
+//     * Getter for Comments.
+//     *
+//     * @return Collection<int, Comment> comments
+//     */
+//    public function getComments(): Collection
+//    {
+//        return $this->comments;
+//    }
+//
+//    /**
+//     * Add Comment function.
+//     *
+//     * @param Comment $comment comment
+//     *
+//     * @return $this this
+//     */
+//    public function addComment(Comment $comment): static
+//    {
+//        if (!$this->comments->contains($comment)) {
+//            $this->comments->add($comment);
+//            $comment->setPost($this);
+//        }
+//
+//        return $this;
+//    }
 
     /**
      * Remove Comment function.

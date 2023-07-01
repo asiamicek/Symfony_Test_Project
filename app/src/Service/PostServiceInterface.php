@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
@@ -30,10 +31,15 @@ interface PostServiceInterface
      */
     public function getPaginatedList(int $page, array $filters = []): PaginationInterface;
 
+
     /**
-     * @return array posts
+     * Find posts by category.
+     *
+     * @param Category $category
+     *
+     * @return array Array of posts in the category
      */
-    public function getAllPosts(): array;
+    public function findByCategory(Category $category): array;
 
     /**
      * Save entity.

@@ -74,6 +74,21 @@ class CategoryRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->select('partial category.{id, title}')
+
+
+            ->orderBy('category.id', 'DESC');
+    }
+
+    /**
+     * Query posts.
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryPosts(): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->select('partial category.{id, title}', 'partial post.{id, title}')
+            ->join('post.category', 'category')
             ->orderBy('category.id', 'DESC');
     }
 

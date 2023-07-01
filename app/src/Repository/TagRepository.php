@@ -77,6 +77,7 @@ class TagRepository extends ServiceEntityRepository
     public function findOneById(int $id): ?Tag
     {
         return $this->createQueryBuilder('tag')
+            ->select('partial tag.{id, title}')
             ->andWhere('tag.id = :id')
             ->setParameter('id', $id)
             ->getQuery()

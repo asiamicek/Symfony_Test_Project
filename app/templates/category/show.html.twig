@@ -6,9 +6,9 @@
 
 {% block body %}
     <h1>{{ category.title }}</h1>
-    {% if category is defined and category|length %}
+{#    {% if category is defined and category|length %}#}
 
-        {% if category.posts is defined and category.posts|length %}
+        {% if posts is defined and posts|length %}
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -19,7 +19,7 @@
                     <th>{{ 'label_actions'|trans }}</th>
                 </tr>
                 </thead>
-                {% for post in category.posts %}
+                {% for post in posts %}
                     {#                    {% if comment.status %}#}
                     <tbody>
                     <tr>
@@ -49,17 +49,22 @@
                     {#                    {% endif %}#}
                 {% endfor %}
             </table>
-        {% endif %}
-
 
         <p>
             <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}">
                 {{ 'action.back_to_list'|trans }}
             </a>
         </p>
-    {% else %}
-        <p>
-            {{ 'message.record_not_found'|trans }}
-        </p>
-    {% endif %}
+        {% else %}
+            <p>
+                {{ 'message.no_posts'|trans }}
+            </p>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a href="{{ url('post_create') }}">
+                    <button  onclick="" style="margin-top: 20px; width: 20%; margin-bottom:20px;" class="btn btn-primary">
+                        {{ 'post_create'|trans }}
+                    </button>
+                </a>
+            {% endif %}
+        {% endif %}
 {% endblock %}

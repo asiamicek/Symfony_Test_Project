@@ -534,6 +534,10 @@
                 <source>title.user_passsword_edit</source>
                 <target>Change user password</target>
             </trans-unit>
+            <trans-unit id="message.no_posts">
+                <source>message.no_posts</source>
+                <target>Category does not contain posts</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

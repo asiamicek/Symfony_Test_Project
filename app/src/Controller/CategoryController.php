@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Service\CategoryServiceInterface;
+use App\Service\PostServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +28,11 @@ class CategoryController extends AbstractController
     private CategoryServiceInterface $categoryService;
 
     /**
+     * Post service.
+     */
+    private PostServiceInterface $postService;
+
+    /**
      * Translator.
      */
     private TranslatorInterface $translator;
@@ -35,11 +41,13 @@ class CategoryController extends AbstractController
      * Constructor.
      *
      * @param CategoryServiceInterface $categoryService Category service
+     * @param PostServiceInterface $postService Post service
      * @param TranslatorInterface      $translator      Translator
      */
-    public function __construct(CategoryServiceInterface $categoryService, TranslatorInterface $translator)
+    public function __construct(CategoryServiceInterface $categoryService,PostServiceInterface $postService, TranslatorInterface $translator)
     {
         $this->categoryService = $categoryService;
+        $this->postService = $postService;
         $this->translator = $translator;
     }
 
@@ -56,15 +64,15 @@ class CategoryController extends AbstractController
         $pagination = $this->categoryService->getPaginatedList(
             $request->query->getInt('page', 1)
         );
+        $posts = $this->categoryService->getPosts();
 
-        return $this->render('category/index.html.twig', ['pagination' => $pagination]);
+        return $this->render('category/index.html.twig', ['pagination' => $pagination,'posts' => $posts]);
     }
 
     /**
      * Show action.
      *
-     * @param Category $category
-     *Category entity
+     * @param Category $category Category entity
      *
      * @return Response HTTP response
      */
@@ -76,9 +84,11 @@ class CategoryController extends AbstractController
     )]
     public function show(Category $category): Response
     {
+        $posts = $this->postService->findByCategory($category);
+
         return $this->render(
             'category/show.html.twig',
-            ['category' => $category]
+            ['category' => $category, 'posts' => $posts]
         );
     }
 
@@ -187,7 +197,9 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('category_index');
         }
 
-        if ($category->getPosts()->count()) {
+        $posts = $this->postService->findByCategory($category);
+
+        if (count($posts) > 0) {
             $this->addFlash('warning', $this->translator->trans('message_category_contains_posts'));
 
             return $this->redirectToRoute('category_index');

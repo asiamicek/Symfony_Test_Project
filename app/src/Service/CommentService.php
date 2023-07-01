@@ -54,17 +54,18 @@ class CommentService implements CommentServiceInterface
         );
     }
 
+
     /**
-     * Find by post.
+     * Finds posts by category.
      *
      * @param Post $post Post entity
      *
-     * @return array Result
+     * @return array Array of posts in the category
      */
     public function findByPost(Post $post): array
     {
-        return $this->commentRepository->queryByPost($post)->getQuery()->getResult();
-    }// end findByPost()
+        return $this->commentRepository->findBy(['post' => $post]);
+    }
 
     /**
      * Save entity.

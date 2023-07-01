@@ -94,17 +94,48 @@ class PostRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select(
-                'partial post.{id, createdAt, updatedAt, title, content}',
-                'partial post.{id, title}'
+                'partial post.{id, createdAt, updatedAt, title, author}',
+                'partial category.{id, title}',
+                'partial tags.{id, title}',
+                'partial user.{id, nickname}'
+
             )
             ->join('post.category', 'category')
-            ->leftJoin('post.comments', 'comments')
+//            ->leftJoin('post.comments', 'comments')
             ->leftJoin('post.tags', 'tags')
+            ->leftJoin('post.author', 'user')
             ->orderBy('post.updatedAt', 'DESC');
         // join post i comment
+//        $queryBuilder = $this->getOrCreateQueryBuilder()
+//            ->select(
+//                'partial post.{id, createdAt, updatedAt, title}',
+//                'partial category.title',
+//                'partial tags.title'
+//            )
+//            ->join('post.category', 'category')
+//            ->leftJoin('post.tags', 'tags')
+//            ->orderBy('post.updatedAt', 'DESC');
+
 
         return $this->applyFiltersToList($queryBuilder, $filters);
     }
+
+//    /**
+//     * Query tasks by author.
+//     *
+//     * @param User $user User entity
+//     *
+//     * @return QueryBuilder Query builder
+//     */
+//    public function queryByAuthor(User $user): QueryBuilder
+//    {
+//        $queryBuilder = $this->queryAll([]);
+//
+//        $queryBuilder->andWhere('post.author = :author')
+//            ->setParameter('author', $user);
+//
+//        return $queryBuilder;
+//    }
 
     /**
      * Query tasks by author.
@@ -113,15 +144,32 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return QueryBuilder Query builder
      */
-    public function queryByAuthor(User $user): QueryBuilder
+    public function queryPosts(): QueryBuilder
     {
-        $queryBuilder = $this->queryAll();
-
-        $queryBuilder->andWhere('post.author = :author')
-            ->setParameter('author', $user);
-
-        return $queryBuilder;
+        return $this->getOrCreateQueryBuilder()->select(
+            'partial post.{id}',
+            'partial category.{id}'
+        )->leftJoin('post.category', 'category');
     }
+
+
+
+//    /**
+//     * Query tasks by author.
+//     *
+//     * @param Category $category Category entity
+//     *
+//     * @return QueryBuilder Query builder
+//     */
+//    public function queryByCategory(Category $category): QueryBuilder
+//    {
+//        $queryBuilder = $this->queryAll([]);
+//
+//        $queryBuilder->andWhere('post.category = :category')
+//            ->setParameter('category', $category);
+//
+//        return $queryBuilder;
+//    }
 
     /**
      * Apply filters to paginated list.
