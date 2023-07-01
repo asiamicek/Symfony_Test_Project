@@ -7,7 +7,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\Type\UserPasswordType;
-use App\Form\UserdataType;
+use App\Form\Type\UserdataType;
 use App\Service\UserService;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;

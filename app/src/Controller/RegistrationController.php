@@ -6,7 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\Type\UserType;
 use App\Security\LoginFormAuthenticator;
 use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;

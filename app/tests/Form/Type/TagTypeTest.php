@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Type;
+namespace App\Tests\Form\Type;
 
 use App\Entity\Tag;
 use App\Form\Type\TagType;
