@@ -12,6 +12,7 @@ use App\Form\Type\CommentType;
 use App\Form\Type\PostType;
 use App\Service\CommentServiceInterface;
 use App\Service\PostServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -134,10 +135,10 @@ class PostController extends AbstractController
     #[Route('/create', methods: ['GET', 'POST'], name: 'post_create')]
     public function create(Request $request): Response
     {
-        if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->isGranted('ROLE_USER')) {
             $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
 
-            return $this->redirectToRoute('category_index');
+            return $this->redirectToRoute('index');
         }
 
         /** @var User $user */
@@ -147,8 +148,6 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
-//        var_dump($user);
-//        var_dump($post);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->postService->save($post);
