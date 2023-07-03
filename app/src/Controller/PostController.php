@@ -133,13 +133,14 @@ class PostController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/create', methods: ['GET', 'POST'], name: 'post_create')]
+    #[IsGranted('ROLE_USER')]
     public function create(Request $request): Response
     {
-        if (!$this->isGranted('ROLE_USER')) {
-            $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
-
-            return $this->redirectToRoute('index');
-        }
+//        if (!$this->isGranted('ROLE_USER')) {
+//            $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
+//
+//            return $this->redirectToRoute('index');
+//        }
 
         /** @var User $user */
         $user = $this->getUser();
