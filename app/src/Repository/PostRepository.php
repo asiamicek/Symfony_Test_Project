@@ -97,28 +97,17 @@ class PostRepository extends ServiceEntityRepository
                 'partial post.{id, createdAt, updatedAt, title, author}',
                 'partial category.{id, title}',
                 'partial tags.{id, title}',
-                'partial user.{id, nickname}'
+                'author'
 
             )
             ->join('post.category', 'category')
-//            ->leftJoin('post.comments', 'comments')
             ->leftJoin('post.tags', 'tags')
-            ->leftJoin('post.author', 'user')
+            ->leftJoin('post.author', 'author')
             ->orderBy('post.updatedAt', 'DESC');
-        // join post i comment
-//        $queryBuilder = $this->getOrCreateQueryBuilder()
-//            ->select(
-//                'partial post.{id, createdAt, updatedAt, title}',
-//                'partial category.title',
-//                'partial tags.title'
-//            )
-//            ->join('post.category', 'category')
-//            ->leftJoin('post.tags', 'tags')
-//            ->orderBy('post.updatedAt', 'DESC');
-
 
         return $this->applyFiltersToList($queryBuilder, $filters);
     }
+
 
 //    /**
 //     * Query tasks by author.
@@ -127,30 +116,13 @@ class PostRepository extends ServiceEntityRepository
 //     *
 //     * @return QueryBuilder Query builder
 //     */
-//    public function queryByAuthor(User $user): QueryBuilder
+//    public function queryPosts(): QueryBuilder
 //    {
-//        $queryBuilder = $this->queryAll([]);
-//
-//        $queryBuilder->andWhere('post.author = :author')
-//            ->setParameter('author', $user);
-//
-//        return $queryBuilder;
+//        return $this->getOrCreateQueryBuilder()->select(
+//            'partial post.{id}',
+//            'partial category.{id}'
+//        )->leftJoin('post.category', 'category');
 //    }
-
-    /**
-     * Query tasks by author.
-     *
-     * @param User $user User entity
-     *
-     * @return QueryBuilder Query builder
-     */
-    public function queryPosts(): QueryBuilder
-    {
-        return $this->getOrCreateQueryBuilder()->select(
-            'partial post.{id}',
-            'partial category.{id}'
-        )->leftJoin('post.category', 'category');
-    }
 
 
 

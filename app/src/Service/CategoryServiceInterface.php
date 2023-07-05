@@ -23,8 +23,8 @@ interface CategoryServiceInterface
      */
     public function getPaginatedList(int $page): PaginationInterface;
 
-//    public function getPosts(): QueryBuilder;
-    public function getPosts(): array;
+////    public function getPosts(): QueryBuilder;
+//    public function getPosts(): array;
 
     /**
      * Save entity.

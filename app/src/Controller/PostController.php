@@ -183,7 +183,7 @@ class PostController extends AbstractController
     public function edit(Request $request, Post $post): Response
     {
         $user = $this->security->getUser();
-        if ($post->getAuthor() !== $this->getUser() and !$this->isGranted('ROLE_ADMIN') and !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->isGranted('EDIT', $post)) {
             $this->addFlash(
                 'warning',
                 $this->translator->trans('message_action_impossible')
@@ -191,6 +191,14 @@ class PostController extends AbstractController
 
             return $this->redirectToRoute('post_index');
         }
+//        if ($post->getAuthor() !== $this->getUser() and !$this->isGranted('ROLE_ADMIN') and !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+//            $this->addFlash(
+//                'warning',
+//                $this->translator->trans('message_action_impossible')
+//            );
+//
+//            return $this->redirectToRoute('post_index');
+//        }
 
         $form = $this->createForm(
             PostType::class,

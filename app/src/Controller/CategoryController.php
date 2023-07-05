@@ -64,9 +64,9 @@ class CategoryController extends AbstractController
         $pagination = $this->categoryService->getPaginatedList(
             $request->query->getInt('page', 1)
         );
-        $posts = $this->categoryService->getPosts();
+//        $posts = $this->categoryService->getPosts();
 
-        return $this->render('category/index.html.twig', ['pagination' => $pagination,'posts' => $posts]);
+        return $this->render('category/index.html.twig', ['pagination' => $pagination]);
     }
 
     /**

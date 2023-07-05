@@ -68,14 +68,14 @@ class CategoryService implements CategoryServiceInterface
 //    {
 //        return $this->postRepository->queryPosts();
 //    }
-    public function getPosts(): array
-    {
-        $queryBuilder = $this->postRepository->queryPosts();
-        $query = $queryBuilder->getQuery();
-        $results = $query->getArrayResult();
-
-        return $results;
-    }
+//    public function getPosts(): array
+//    {
+//        $queryBuilder = $this->postRepository->queryPosts();
+//        $query = $queryBuilder->getQuery();
+//        $results = $query->getArrayResult();
+//
+//        return $results;
+//    }
 
 
 //    /**
