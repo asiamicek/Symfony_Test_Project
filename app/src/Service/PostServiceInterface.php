@@ -31,11 +31,10 @@ interface PostServiceInterface
      */
     public function getPaginatedList(int $page, array $filters = []): PaginationInterface;
 
-
     /**
      * Find posts by category.
      *
-     * @param Category $category
+     * @param Category $category Category
      *
      * @return array Array of posts in the category
      */

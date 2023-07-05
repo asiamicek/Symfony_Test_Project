@@ -7,7 +7,6 @@ namespace App\Controller;
 
 use App\Entity\Tag;
 use App\Service\TagServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +15,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class TagController.
- *
- *
  */
 #[Route('/tag')]
 class TagController extends AbstractController
@@ -50,8 +47,6 @@ class TagController extends AbstractController
      * @param Request $request HTTP request
      *
      * @return Response HTTP response
-     *
-     *
      */
     #[Route(
         '/',

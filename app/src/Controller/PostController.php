@@ -73,8 +73,8 @@ class PostController extends AbstractController
     #[Route(name: 'post_index', methods: 'GET')]
     public function index(Request $request): Response
     {
-//        $user = $this->getUser();
-//        var_dump($user);
+        //        $user = $this->getUser();
+        //        var_dump($user);
 
         $filters = $this->getFilters($request);
         $pagination = $this->postService->getPaginatedList(
@@ -136,11 +136,11 @@ class PostController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function create(Request $request): Response
     {
-//        if (!$this->isGranted('ROLE_USER')) {
-//            $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
-//
-//            return $this->redirectToRoute('index');
-//        }
+        //        if (!$this->isGranted('ROLE_USER')) {
+        //            $this->addFlash('warning', $this->translator->trans('message_action_impossible'));
+        //
+        //            return $this->redirectToRoute('index');
+        //        }
 
         /** @var User $user */
         $user = $this->getUser();
@@ -149,18 +149,13 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->postService->save($post);
-
-
 
             $this->addFlash(
                 'success',
                 $this->translator->trans('message_created_successfully')
             );
-
-
 
             return $this->redirectToRoute('post_index');
         }
@@ -191,14 +186,6 @@ class PostController extends AbstractController
 
             return $this->redirectToRoute('post_index');
         }
-//        if ($post->getAuthor() !== $this->getUser() and !$this->isGranted('ROLE_ADMIN') and !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-//            $this->addFlash(
-//                'warning',
-//                $this->translator->trans('message_action_impossible')
-//            );
-//
-//            return $this->redirectToRoute('post_index');
-//        }
 
         $form = $this->createForm(
             PostType::class,
@@ -242,7 +229,7 @@ class PostController extends AbstractController
     public function delete(Request $request, Post $post): Response
     {
         $user = $this->security->getUser();
-        if ($post->getAuthor() !== $this->getUser() and !$this->isGranted('ROLE_ADMIN') and !$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->isGranted('DELETE', $post)) {
             $this->addFlash(
                 'warning',
                 $this->translator->trans('message_action_impossible')

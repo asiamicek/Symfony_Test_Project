@@ -8,7 +8,6 @@ namespace App\Repository;
 use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\Tag;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
@@ -98,7 +97,6 @@ class PostRepository extends ServiceEntityRepository
                 'partial category.{id, title}',
                 'partial tags.{id, title}',
                 'author'
-
             )
             ->join('post.category', 'category')
             ->leftJoin('post.tags', 'tags')
@@ -107,41 +105,6 @@ class PostRepository extends ServiceEntityRepository
 
         return $this->applyFiltersToList($queryBuilder, $filters);
     }
-
-
-//    /**
-//     * Query tasks by author.
-//     *
-//     * @param User $user User entity
-//     *
-//     * @return QueryBuilder Query builder
-//     */
-//    public function queryPosts(): QueryBuilder
-//    {
-//        return $this->getOrCreateQueryBuilder()->select(
-//            'partial post.{id}',
-//            'partial category.{id}'
-//        )->leftJoin('post.category', 'category');
-//    }
-
-
-
-//    /**
-//     * Query tasks by author.
-//     *
-//     * @param Category $category Category entity
-//     *
-//     * @return QueryBuilder Query builder
-//     */
-//    public function queryByCategory(Category $category): QueryBuilder
-//    {
-//        $queryBuilder = $this->queryAll([]);
-//
-//        $queryBuilder->andWhere('post.category = :category')
-//            ->setParameter('category', $category);
-//
-//        return $queryBuilder;
-//    }
 
     /**
      * Apply filters to paginated list.

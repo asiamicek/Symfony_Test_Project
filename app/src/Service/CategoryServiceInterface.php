@@ -6,7 +6,6 @@
 namespace App\Service;
 
 use App\Entity\Category;
-use Doctrine\ORM\QueryBuilder;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -22,9 +21,6 @@ interface CategoryServiceInterface
      * @return PaginationInterface<string, mixed> Paginated list
      */
     public function getPaginatedList(int $page): PaginationInterface;
-
-////    public function getPosts(): QueryBuilder;
-//    public function getPosts(): array;
 
     /**
      * Save entity.

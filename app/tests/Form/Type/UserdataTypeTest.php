@@ -5,7 +5,7 @@ namespace App\Tests\Form\Type;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Form\Type\TagType;
-use App\Form\UserdataType;
+use App\Form\Type\UserdataType;
 use DateTime;
 use Symfony\Component\Form\Test\TypeTestCase;
 use App\Tests\BaseTest;

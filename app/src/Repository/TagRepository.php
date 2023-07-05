@@ -67,7 +67,6 @@ class TagRepository extends ServiceEntityRepository
     }
 
     /**
-     *
      * @param int $id id
      *
      * @return Tag|null tag

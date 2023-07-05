@@ -42,8 +42,6 @@ class Post
 
     /**
      * Content.
-     *
-     * @var Types::TEXT|null
      */
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
@@ -75,14 +73,14 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category;
 
-//    /**
-//     * Comments collection.
-//     *
-//     * @var Collection|ArrayCollection
-//     */
-//    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, fetch: 'EXTRA_LAZY')]
-//    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'post_id', onDelete: 'CASCADE')]
-//    private Collection $comments;
+    //    /**
+    //     * Comments collection.
+    //     *
+    //     * @var Collection|ArrayCollection
+    //     */
+    //    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, fetch: 'EXTRA_LAZY')]
+    //    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'post_id', onDelete: 'CASCADE')]
+    //    private Collection $comments;
 
     /**
      * Tags.
@@ -239,32 +237,32 @@ class Post
         return $this;
     }
 
-//    /**
-//     * Getter for Comments.
-//     *
-//     * @return Collection<int, Comment> comments
-//     */
-//    public function getComments(): Collection
-//    {
-//        return $this->comments;
-//    }
-//
-//    /**
-//     * Add Comment function.
-//     *
-//     * @param Comment $comment comment
-//     *
-//     * @return $this this
-//     */
-//    public function addComment(Comment $comment): static
-//    {
-//        if (!$this->comments->contains($comment)) {
-//            $this->comments->add($comment);
-//            $comment->setPost($this);
-//        }
-//
-//        return $this;
-//    }
+    //    /**
+    //     * Getter for Comments.
+    //     *
+    //     * @return Collection<int, Comment> comments
+    //     */
+    //    public function getComments(): Collection
+    //    {
+    //        return $this->comments;
+    //    }
+    //
+    //    /**
+    //     * Add Comment function.
+    //     *
+    //     * @param Comment $comment comment
+    //     *
+    //     * @return $this this
+    //     */
+    //    public function addComment(Comment $comment): static
+    //    {
+    //        if (!$this->comments->contains($comment)) {
+    //            $this->comments->add($comment);
+    //            $comment->setPost($this);
+    //        }
+    //
+    //        return $this;
+    //    }
 
     /**
      * Remove Comment function.

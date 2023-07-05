@@ -75,7 +75,6 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->getOrCreateQueryBuilder()
             ->select('partial category.{id, title}')
 
-
             ->orderBy('category.id', 'DESC');
     }
 

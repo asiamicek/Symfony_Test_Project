@@ -54,7 +54,6 @@ class CommentService implements CommentServiceInterface
         );
     }
 
-
     /**
      * Finds posts by category.
      *

@@ -41,10 +41,10 @@ class CategoryController extends AbstractController
      * Constructor.
      *
      * @param CategoryServiceInterface $categoryService Category service
-     * @param PostServiceInterface $postService Post service
+     * @param PostServiceInterface     $postService     Post service
      * @param TranslatorInterface      $translator      Translator
      */
-    public function __construct(CategoryServiceInterface $categoryService,PostServiceInterface $postService, TranslatorInterface $translator)
+    public function __construct(CategoryServiceInterface $categoryService, PostServiceInterface $postService, TranslatorInterface $translator)
     {
         $this->categoryService = $categoryService;
         $this->postService = $postService;
@@ -64,7 +64,7 @@ class CategoryController extends AbstractController
         $pagination = $this->categoryService->getPaginatedList(
             $request->query->getInt('page', 1)
         );
-//        $posts = $this->categoryService->getPosts();
+        //        $posts = $this->categoryService->getPosts();
 
         return $this->render('category/index.html.twig', ['pagination' => $pagination]);
     }
